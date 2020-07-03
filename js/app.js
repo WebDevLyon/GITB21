@@ -1,9 +1,10 @@
 new Vue({
     el: '#app',
-    data: {
+    data:{
         msg: 'Hello World',
         auth: true,
-        envoiAFaire: false
+        envoiAFaire: false,
+        tournois: []
     },
     methods: {
         //Prérequis et paramétrage pour communication avec l'API
@@ -27,8 +28,7 @@ new Vue({
                 request.onreadystatechange = function () {
                     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                         let response = JSON.parse(this.responseText);
-                        resolve(response);
-                        console.log(response)
+                        resolve(response.records);
                     }
                 };
                 request.open("GET", this.param_API()[0] + table + "/" + id + this.param_API()[1]);
@@ -43,8 +43,14 @@ new Vue({
         }
 
     },
-    mounted: function () {
-        
-        this.api_demande("", 'tournois')
+    mounted: async function () {
+        let tableTournois = document.getElementById('table-tournois');
+        if (tableTournois) {
+            console.log('ok')
+        } else {
+            console.log('KO')
+        }
+        console.log(this.api_demande("", 'tournois'))
+ this.tournois = await this.api_demande("", 'tournois')
     }
-})
+});
