@@ -1,10 +1,12 @@
 new Vue({
     el: '#app',
-    data:{
+    data: {
         msg: 'Hello World',
         auth: true,
         envoiAFaire: false,
-        tournois: []
+        tournois: [],
+        contacts:[],
+        players:[],
     },
     methods: {
         //Prérequis et paramétrage pour communication avec l'API
@@ -44,13 +46,17 @@ new Vue({
 
     },
     mounted: async function () {
-        let tableTournois = document.getElementById('table-tournois');
-        if (tableTournois) {
-            console.log('ok')
-        } else {
-            console.log('KO')
-        }
-        console.log(this.api_demande("", 'tournois'))
- this.tournois = await this.api_demande("", 'tournois')
+        let blockContent = document.getElementById('block-content').getAttribute('class').split(' ')[0];
+        switch (blockContent) {
+            case 'tournois':
+                this.tournois = await this.api_demande("", 'tournois')
+                break;
+            case 'players':
+                this.tournois = await this.api_demande("", 'joueurs')
+                break;
+                case 'contacts':
+                this.tournois = await this.api_demande("", 'contact')
+                break;
+        };
     }
 });

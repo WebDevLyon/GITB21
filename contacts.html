@@ -12,10 +12,10 @@
     <title>GITB 21 : Gestion des Inscription aux Tournois de Badminton</title>
 </head>
 
-<body class="container-fluid m-1">
-    <div id="app">
+<body>
+    <div id="app" class="container my-1">
         <div v-if='auth'>
-            <header>
+            <header class="row">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
                     <a class="navbar-brand" href="#">GITB</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -26,10 +26,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link " href="index.html">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="tournois.html">Tournois</a>
+                                <a class="nav-link active" href="tournois.html">Tournois</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="players.html">Joueurs</a>
@@ -45,13 +45,46 @@
                     </div>
                 </nav>
             </header>
-
-            <footer>
-
-            </footer>
+            <div class="row my-1">
+                <div id="block-content" class="contacts card col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr class="text-center">
+                                    <th class='align-middle' scope="col">Date</th>
+                                    <th class='align-middle' scope="col">Tournoi</th>
+                                    <th class='align-middle sm-hidden' scope="col">Adresse</th>
+                                    <th class='align-middle sm-hidden' scope="col">Date limite inscription</th>
+                                    <th class='align-middle' scope="col">Voir le tournoi</th>
+                                </tr>
+                            </thead>
+                            <tbody v-if="tournois">
+                                <tr class='text-center' v-for="tournoi in tournois">
+                                    <td class='align-middle'>{{tournoi.fields.Date}}</th>
+                                    <td class='align-middle'>{{tournoi.fields.Nom_du_tournoi}}</th>
+                                    <td class='align-middle sm-hidden'>{{tournoi.fields.Adresse}}</th>
+                                    <td class='align-middle sm-hidden'>{{tournoi.fields.Date_limite_inscription}}</th>
+                                    <td class='align-middle'><a :href="'tournoi-detail.html?id='+tournoi.id"><svg width="1em"
+                                                height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                            </svg></a></th>
+                                </tr>
+                            </tbody>
+                            <tbody v-else>
+                                <tr>
+                                    <td colspan="5" class="text-center">Pas de tournoi suivi</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -67,6 +100,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Import script JS -->
     <script src="js/app.js"></script>
+
 </body>
 
 </html>
