@@ -1,12 +1,8 @@
 body {
     background-color: #193E72;
 }
-.icon-modif{
-    position: absolute;
-    right: 0.3rem;
-    top: 0.1rem;
-    color: #BDBDBD;
-}
+
+
 @media screen and (max-width:576px){
 .sm-hidden{
     display:none;

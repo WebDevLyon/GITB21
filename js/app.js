@@ -4,9 +4,13 @@ new Vue({
         msg: 'Hello World',
         auth: true,
         envoiAFaire: false,
-        tournois: [],
-        contacts:[],
-        players:[],
+        responseAPI: [],
+         //Option de filtrage et order de l'api Airtable
+         option: {
+            ordering(fields) {
+                return  'sort%5B0%5D%5Bfield%5D='+fields + '&' +'sort%5B0%5D%5Bdirection%5D=desc'
+            }
+        },
     },
     methods: {
         //Prérequis et paramétrage pour communication avec l'API
@@ -21,10 +25,9 @@ new Vue({
 
             return paramAPI
         },
-
         /*Appel vers l'API
           @param id : string*/
-        api_demande: function (id, table) {
+        api_demande: function (id, table, option) {
             return new Promise((resolve) => {
                 let request = new XMLHttpRequest();
                 request.onreadystatechange = function () {
@@ -33,7 +36,7 @@ new Vue({
                         resolve(response.records);
                     }
                 };
-                request.open("GET", this.param_API()[0] + table + "/" + id + this.param_API()[1]);
+                request.open("GET", this.param_API()[0] + table + "/" + id + this.param_API()[1] + '&' + option);
                 request.send();
             });
         },
@@ -42,6 +45,10 @@ new Vue({
             id = location.search.substring(4);
             const list = await this.api_demande(id, sessionStorage.getItem("table"));
             console.log("Adminsitration : La fiche id " + id + " est affichée");
+        },
+
+        formatedDate() {
+
         }
 
     },
@@ -49,14 +56,16 @@ new Vue({
         let blockContent = document.getElementById('block-content').getAttribute('class').split(' ')[0];
         switch (blockContent) {
             case 'tournois':
-                this.tournois = await this.api_demande("", 'tournois')
+                this.responseAPI = await this.api_demande("", 'tournois',this.option.ordering('Date'))
                 break;
             case 'players':
-                this.tournois = await this.api_demande("", 'joueurs')
+                this.responseAPI = await this.api_demande("", 'joueurs', this.option.ordering('Nom'))
                 break;
-                case 'contacts':
-                this.tournois = await this.api_demande("", 'contact')
+            case 'contacts':
+                this.responseAPI = await this.api_demande("", 'contact', this.option.ordering('Nom'))
                 break;
+                default:
+                    break;
         };
     }
 });
