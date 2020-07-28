@@ -7,10 +7,20 @@
       <p>{{nom}} {{prenom}}</p>
     </div>
     <div class="nav__link">
-      <div>
-        <i class="nav__link__icon fas fa-tachometer-alt"></i>
-      </div>
-      <p class="nav__link__title">LINK-TITLE</p>
+      <router-link to="/">
+        <div>
+          <i class="nav__link__icon fas fa-tachometer-alt"></i>
+        </div>
+        <p class="nav__link__title">Dashboard</p>
+      </router-link>
+    </div>
+    <div class="nav__link">
+      <router-link to="player">
+        <div>
+          <i class="nav__link__icon"></i>
+        </div>
+        <p class="nav__link__title">Joueurs</p>
+      </router-link>
     </div>
     <div class="nav__link">
       <div>
@@ -19,16 +29,12 @@
       <p class="nav__link__title">LINK-TITLE</p>
     </div>
     <div class="nav__link">
-      <div>
-        <i class="nav__link__icon"></i>
-      </div>
-      <p class="nav__link__title">LINK-TITLE</p>
-    </div>
-    <div class="nav__link">
-      <div>
-        <i class="nav__link__icon"></i>
-      </div>
-      <p class="nav__link__title">LINK-TITLE</p>
+      <router-link to="/contact">
+        <div>
+          <i class="nav__link__icon"></i>
+        </div>
+        <p class="nav__link__title">LINK-TITLE</p>
+      </router-link>
     </div>
   </nav>
 </template>
@@ -43,15 +49,13 @@ export default {
 .nav {
   background: $BG-nav;
   height: 100vh;
-  color:white;
+  color: white;
   &__id-user {
   }
-  &__link{
-    &__title{
-
+  &__link {
+    &__title {
     }
-    &__icon{
-
+    &__icon {
     }
   }
 }
