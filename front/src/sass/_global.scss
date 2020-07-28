@@ -1,13 +1,30 @@
 //Color Panel
-$BG-blue:#193E72;
+$BG-nav: #2a58ae;
+$BG-searchbar: #fdfdfd;
+$BG-content: #e9edf0;
+
 
 body {
-    background-color: $BG-blue;
+    margin: 0;
+}
+//Structure de la page
+.page-content {
+    //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
+    //la droite comporte une barre de recherche en haut avec un bouton disconnect
+    // Le reste et le corps de la session regardée
+    display: flex;
+    width: 100%;
+}
+nav {
+    //Bar à gauche largeur 1/5 de l'écran
+    flex: 1;
+}
+.view {
+    flex: 4;
 }
 
-
-@media screen and (max-width:576px){
-.sm-hidden{
-    display:none;
-}
+@media screen and (max-width: 576px) {
+    .sm-hidden {
+        display: none;
+    }
 }

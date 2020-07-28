@@ -1,55 +1,62 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
-      <a class="navbar-brand" href="#">GITB</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">
-              Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="tournois.html">Tournois</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="players.html">Joueurs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contacts.html">Contacts</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+  <nav class="nav">
+    <div class="nav__id-user">
+      <div>
+        <img src="#" alt="Photo de l'utilisateur" />
       </div>
-    </nav>
+      <p>{{nom}} {{prenom}}</p>
+    </div>
+    <div class="nav__link">
+      <router-link to="/">
+        <div>
+          <i class="nav__link__icon fas fa-tachometer-alt"></i>
+        </div>
+        <p class="nav__link__title">Dashboard</p>
+      </router-link>
+    </div>
+    <div class="nav__link">
+      <router-link to="player">
+        <div>
+          <i class="nav__link__icon"></i>
+        </div>
+        <p class="nav__link__title">Joueurs</p>
+      </router-link>
+    </div>
+    <div class="nav__link">
+      <div>
+        <i class="nav__link__icon"></i>
+      </div>
+      <p class="nav__link__title">LINK-TITLE</p>
+    </div>
+    <div class="nav__link">
+      <router-link to="/contact">
+        <div>
+          <i class="nav__link__icon"></i>
+        </div>
+        <p class="nav__link__title">LINK-TITLE</p>
+      </router-link>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
-    name:"Nav"
-
-}
+  name: "Nav",
+};
 </script>
 
-<style>
-
+<style lang="scss">
+.nav {
+  background: $BG-nav;
+  height: 100vh;
+  color: white;
+  &__id-user {
+  }
+  &__link {
+    &__title {
+    }
+    &__icon {
+    }
+  }
+}
 </style>

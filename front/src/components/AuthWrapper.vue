@@ -13,7 +13,7 @@ import LoginForm from "./LoginForm";
 export default {
   data() {
     return {
-      user: null,
+      user: "nijlak", //à mettre à nul en phase de test
       errorMessage: ""
     };
   },
