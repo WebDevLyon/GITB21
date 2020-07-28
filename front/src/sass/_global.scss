@@ -2,8 +2,11 @@
 $BG-nav: #2a58ae;
 $BG-searchbar: #fdfdfd;
 $BG-content: #e9edf0;
+$BG-card: #fdfdfd;
 
-
+*{
+    box-sizing: border-box;
+}
 body {
     margin: 0;
 }
@@ -14,6 +17,7 @@ body {
     // Le reste et le corps de la session regardée
     display: flex;
     width: 100%;
+    max-height: 100vh;
 }
 nav {
     //Bar à gauche largeur 1/5 de l'écran
@@ -21,10 +25,4 @@ nav {
 }
 .view {
     flex: 4;
-}
-
-@media screen and (max-width: 576px) {
-    .sm-hidden {
-        display: none;
-    }
 }
