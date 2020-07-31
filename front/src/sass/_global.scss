@@ -2,7 +2,8 @@
 $BG-nav: #2a58ae;
 $BG-searchbar: #fdfdfd;
 $BG-content: #e9edf0;
-
+$BG-headerArray: #c4d2e4;
+$BG-headerBody: #fdfdfd;
 
 body {
     margin: 0;
@@ -21,6 +22,26 @@ nav {
 }
 .view {
     flex: 4;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+    text-align: left;
+    width: 90%;
+    & thead {
+        background-color: $BG-headerArray;
+        & tr th  {
+            padding: 0.5rem 0;
+        }
+    }
+    & tbody {
+        font-size: 0.75rem;
+        background-color: $BG-headerBody;
+        & tr td{
+        padding: 0.5rem 0 1rem 0;
+        }
+    }
 }
 
 @media screen and (max-width: 576px) {

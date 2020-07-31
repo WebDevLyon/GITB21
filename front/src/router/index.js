@@ -17,9 +17,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Player.vue')
   },
   {
-    path: '/tournoi',
-    name: 'Tournoi',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Tournoi.vue')
+    path: '/tournois',
+    name: 'Tournois',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tournois.vue')
   },
   {
     path: '/contact',
