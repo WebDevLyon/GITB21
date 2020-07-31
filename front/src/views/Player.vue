@@ -1,19 +1,27 @@
 <template>
   <section class="players">
-    <div class="players__card" v-for="card of cards" :key="card">
-      {{card}}
-      <br />Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos in harum voluptatum quaerat aspernatur maiores eveniet dolorem rem a facere architecto fugit repellendus laboriosam, aliquid ad libero saepe corrupti sequi sint earum, nisi quam dolore incidunt? Assumenda vitae, repellendus, expedita tempore numquam eos, dicta provident in optio labore earum dolores suscipit deserunt quibusdam voluptate sint quam! Laudantium modi quibusdam cum dolores numquam quidem, dignissimos amet fugiat facilis magni quod enim impedit, et blanditiis molestias exercitationem eius accusantium quisquam. Commodi rem sunt ipsa iusto aspernatur dicta rerum fugiat laborum molestiae eveniet. Nisi veritatis quisquam, dignissimos officia assumenda recusandae quis consectetur. Dolores?
-    </div>
+    <Card class="players__card" v-for="card of cards" :key="card" />
   </section>
 </template>
 
 <script>
+import Card from "@/components/Card";
 export default {
   name: "Player",
+  components: {
+    Card,
+  },
   data() {
     return {
       cards: [1, 2, 3, 4, 5],
     };
+  },
+  mounted() {
+    let imgsCard = document.getElementsByClassName("card__block__img");
+    console.log(imgsCard);
+    imgsCard.forEach((img) => {
+      img.style.height = img.clientWidth + "px";
+    });
   },
 };
 </script>
@@ -22,11 +30,12 @@ export default {
 .players {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  justify-content: space-evenly;
   &__card {
-    width: 21%;
+    width: 23%;
     background: $BG-card;
-    margin: 1rem;
+    margin: 0.5rem 0.2rem;
   }
 }
 </style>
