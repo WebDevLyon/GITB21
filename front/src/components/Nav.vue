@@ -15,7 +15,7 @@
       </router-link>
     </div>
     <div class="nav__link">
-      <router-link to="player">
+      <router-link to="/player">
         <div>
           <i class="nav__link__icon"></i>
         </div>
@@ -23,10 +23,12 @@
       </router-link>
     </div>
     <div class="nav__link">
+      <router-link to='/tournois'>
       <div>
         <i class="nav__link__icon"></i>
       </div>
       <p class="nav__link__title">LINK-TITLE</p>
+      </router-link>
     </div>
     <div class="nav__link">
       <router-link to="/contact">
