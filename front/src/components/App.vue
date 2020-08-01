@@ -27,6 +27,8 @@ export default {
   &__session{
     background : $BG-content;
     flex: 1;
+    padding:0 2rem;
+    overflow: scroll;
   }
 }
 </style>
