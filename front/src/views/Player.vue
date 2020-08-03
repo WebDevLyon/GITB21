@@ -1,11 +1,16 @@
 <template>
-  <section class="players">
-    <Card class="players__card" v-for="card of cards" :key="card" />
+  <section>
+    <h2>Joueurs</h2>
+    <div class="players">
+    <Card class="players__card" v-for="(joueur,index) of allJoueurs" :key="index" :joueur="joueur" />
+    </div>
   </section>
 </template>
 
 <script>
 import Card from "@/components/Card";
+import { liste } from "../airtableUtils";
+
 export default {
   name: "Player",
   components: {
@@ -13,15 +18,15 @@ export default {
   },
   data() {
     return {
-      cards: [1, 2, 3, 4, 5],
-    };
+      allJoueurs: []
+      }
   },
   mounted() {
     let imgsCard = document.getElementsByClassName("card__block__img");
-    console.log(imgsCard);
     imgsCard.forEach((img) => {
       img.style.height = img.clientWidth + "px";
     });
+    liste("joueurs", this.allJoueurs);
   },
 };
 </script>
