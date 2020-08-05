@@ -8,7 +8,7 @@ const base = new Airtable({ apiKey: "keygHycxBbIn4H0c6" }).base(
 function liste(table, tableau) {
     base(table)
         .select({
-            view: "Grid view",
+            view: "Main",
         })
         .firstPage(function (err, records) {
             if (err) {

@@ -47,7 +47,7 @@
       <div>
         <i class="nav__link__icon"></i>
       </div>
-      <p class="nav__link__title">LINK-TITLE</p>
+      <p class="nav__link__title">Tournois</p>
       </router-link>
     </div>
     <div class="nav__link">

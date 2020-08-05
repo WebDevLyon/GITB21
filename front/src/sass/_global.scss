@@ -8,7 +8,6 @@ $Color-name: #2a58ae;
 $BG-headerArray: #c4d2e4;
 $BG-headerBody: #fdfdfd;
 
-
 body {
     margin: 0;
 }
@@ -36,15 +35,28 @@ table {
     width: 90%;
     & thead {
         background-color: $BG-headerArray;
-        & tr th  {
+        & tr th {
             padding: 0.5rem 0;
         }
     }
     & tbody {
         font-size: 0.75rem;
         background-color: $BG-headerBody;
-        & tr td{
-        padding: 0.5rem 0 1rem 0;
+        & tr td {
+            padding: 1rem 0 2rem 0;
+            border-bottom: 0.5px solid $BG-headerArray;
+        }
+    }
+    & .website-status {
+        display: flex;
+        align-items: center;
+        width: 60%;
+        margin: auto;
+        padding: 0.5rem;
+        border: 0.5px solid $BG-headerArray;
+        border-radius: 40%;
+        & .dot-signal {
+            font-size: 1.5rem;
         }
     }
 }
