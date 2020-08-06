@@ -1,6 +1,6 @@
 <template>
   <div>
-    <App v-if="user" />
+    <App v-if="user" :associate="user.associate" />
     <LoginForm v-else :errorMessage="errorMessage" @submit="login" />
   </div>
 </template>
@@ -13,7 +13,7 @@ import LoginForm from "./LoginForm";
 export default {
   data() {
     return {
-      user: "nijlak", //à mettre à nul en phase de test
+      user: null,
       errorMessage: ""
     };
   },

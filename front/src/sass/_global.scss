@@ -11,6 +11,11 @@ $BG-headerBody: #fdfdfd;
 body {
     margin: 0;
 }
+
+.router-link{
+    color: $BG-content;
+    text-decoration: none;
+}
 //Structure de la page
 .page-content {
     //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
@@ -20,9 +25,29 @@ body {
     width: 100%;
     max-height: 100vh;
 }
-nav {
+.nav {
     //Bar à gauche largeur 1/5 de l'écran
     flex: 1;
+    &__id-user {
+        margin: 1rem auto;
+        width: 80%;
+        &--logo {
+            border-radius: 10%;
+            width: 100%;
+        }
+    }
+    &__link {
+        text-align: center;
+        margin: 2rem;
+        &__title {
+            &--icon {
+                font-size: 2rem;
+            }
+            &--text {
+                margin: 0;
+            }
+        }
+    }
 }
 .view {
     flex: 4;
@@ -56,7 +81,7 @@ table {
         border: 0.5px solid $BG-headerArray;
         border-radius: 40%;
         & .dot-signal {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
     }
 }
