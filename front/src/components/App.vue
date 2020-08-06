@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="page-content">
-    <Nav />
+    <Nav :associate="associate"/>
     <div class="view">
       <SearchBar />
       <router-view class="view__session" />
@@ -14,6 +14,12 @@ import SearchBar from "@/components/SearchBar";
 
 export default {
   name: "App",
+  props:{
+    associate:{
+      type:String,
+      default:null
+    }
+  },
   components: {
     Nav,
     SearchBar

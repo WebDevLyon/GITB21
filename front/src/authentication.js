@@ -1,7 +1,8 @@
 const users = [
     {
       username: "nijlak",
-      password: "ASMC21"
+      password: "ASMC21",
+      associate: "ASMC Badminton"
     }
   ];
   
