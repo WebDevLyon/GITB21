@@ -44,7 +44,7 @@
         </a>
       </div>
       <div class="card__bottom__icon icon-fiche">
-        <router-link to="#">
+        <router-link :to="'/id?id='+joueur.id">
           <svg
             width="1em"
             height="1em"

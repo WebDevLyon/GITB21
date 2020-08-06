@@ -9,7 +9,7 @@
     <tbody v-if="condition">
       <tr v-for="(tournoi, index) in allTournois" :key="index">
         <td>{{tournoi.fields.Date_debut}}</td>
-        <td>{{tournoi.fields.Nom_du_tournoi}}</td>
+        <td>{{tournoi.fields.Nom}}</td>
         <td>
           <div class="website-status" v-if="tournoi.fields.A_saisir=='Fait'">
             <svg

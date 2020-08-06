@@ -17,7 +17,6 @@ function liste(table, tableau) {
             }
             records.forEach((record => {
                 tableau.push(record);
-                console.log("Retrieved", record);
             }));
         })
 }
