@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { liste } from "../airtableUtils";
+import AirtableManager from "@/airtableManager.js";
 
 export default {
   name: "TableGen",
@@ -95,7 +95,7 @@ export default {
     imgsCard.forEach((img) => {
       img.style.height = img.clientWidth + "px";
     });
-    liste("Tournois", this.allTournois);
+    AirtableManager.liste("Tournois", this.allTournois);
   },
 };
 </script>

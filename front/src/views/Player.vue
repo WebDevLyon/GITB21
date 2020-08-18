@@ -11,8 +11,6 @@
 import Card from "@/components/Card";
 import AirtableManager from "@/airtableManager.js";
 
-//import { liste } from "../airtableUtils";
-
 export default {
   name: "Player",
   components: {
@@ -28,7 +26,6 @@ export default {
     imgsCard.forEach((img) => {
       img.style.height = img.clientWidth + "px";
     });
-    //liste("joueurs", this.allJoueurs);
     AirtableManager.liste("joueurs", this.allJoueurs);
   },
 };
