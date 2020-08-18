@@ -9,7 +9,9 @@
 
 <script>
 import Card from "@/components/Card";
-import { liste } from "../airtableUtils";
+import AirtableManager from "@/airtableManager.js";
+
+//import { liste } from "../airtableUtils";
 
 export default {
   name: "Player",
@@ -26,7 +28,8 @@ export default {
     imgsCard.forEach((img) => {
       img.style.height = img.clientWidth + "px";
     });
-    liste("joueurs", this.allJoueurs);
+    //liste("joueurs", this.allJoueurs);
+    AirtableManager.liste("joueurs", this.allJoueurs);
   },
 };
 </script>

@@ -20,4 +20,5 @@ function liste(table, tableau) {
             }));
         })
 }
+
 export { liste }
