@@ -1,9 +1,10 @@
 <template>
   <section class="IdView">
     <h2 class="id__name">{{IdData.data.Nom}} {{IdData.data.Prenom}}</h2>
-    <div class="IdView__container">
-      <div v-if="IdViewType==null">Une erreur est survenue</div>
-      <div class="IdView__container--player lg-block" v-else>
+    <div v-if="IdViewType==null">Une erreur est survenue</div>
+
+    <div class="IdView__container" v-else>
+      <div class="IdView__container--player lg-block">
         <div class="IdView__container--player__photo">
           <img src="../assets//img//29348.jpg" alt />
         </div>
@@ -55,7 +56,10 @@
           <p>Nombre de tournois effectué : {{}}</p>
           <p>
             Renouvellement de l'option :
-            <span class="succes" v-if="IdData.data.RenouvelOptionTournoi==true">
+            <span
+              class="succes"
+              v-if="IdData.data.RenouvelOptionTournoi==true"
+            >
               <svg
                 width="1em"
                 height="1em"
@@ -88,7 +92,13 @@
           </p>
         </div>
       </div>
-      <div class="sm-block">plop</div>
+      <div class="sm-block">
+        <h3>Inscriptions tournois</h3>
+        <div v-if="false">Aucune inscription à un tournoi</div>
+        <ul v-else>
+          <li v-for="(Tournoi,index) in IdData.data.Tournois" :key="index">{{Tournoi.fields.Nom}}</li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
@@ -109,28 +119,12 @@ export default {
   props: {
     IdViewType: {
       type: String,
-      default: "test",
+      default: "Joueurs",
     },
   },
   mounted() {
-    console.log("valeur type id", this.IdViewType);
-    function test(IdData) {
-      var Airtable = require("airtable");
-      var base = new Airtable({ apiKey: "keygHycxBbIn4H0c6" }).base(
-        "appkrZ6ieFbIoxBfW"
-      );
-
-      base("Joueurs").find(IdData.id, function (err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        IdData.data = record.fields;
-        console.log("Retrieved", record);
-      });
-    }
-    test(this.IdData);
-    AirtableManager.IdDetail(this.IdViewType);
+    AirtableManager.IdDetail(this.IdViewType, this.IdData, this.ListTournoi);
+    console.log(this.IdData);
   },
 };
 </script>

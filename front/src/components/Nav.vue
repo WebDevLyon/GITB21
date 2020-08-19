@@ -109,14 +109,6 @@
         </div>
       </router-link>
     </div>
-     <div class="nav__link">
-      <router-link class="router-link" to="/id">
-        <div class="nav__link__title">
-          
-          <p class="nav__link__title--text">TEST IDVIEW</p>
-        </div>
-      </router-link>
-    </div>
   </nav>
 </template>
 
