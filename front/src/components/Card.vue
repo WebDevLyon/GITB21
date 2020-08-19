@@ -5,7 +5,7 @@
     </div>
     <p class="card__name">{{joueur.fields.Nom}} {{joueur.fields.Prenom}}</p>
     <div class="card__compteur">
-      <div v-if="joueur.fields.Tournois!=undefined">{{joueur.fields.Tournois.length}} tournoi<span v-if="joueur.fields.Tournois.length>1">s</span></div>
+      <div v-if="joueur.fields.Tournois!=undefined">Inscription à {{joueur.fields.Tournois.length}} tournoi<span v-if="joueur.fields.Tournois.length>1">s</span></div>
       <div v-else>Aucune d'inscription à un tournoi</div>
     </div>
     <div class="card__bottom">
