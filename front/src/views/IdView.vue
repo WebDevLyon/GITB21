@@ -2,8 +2,8 @@
   <section class="IdView">
     <h2 class="id__name">{{IdData.data.Nom}} {{IdData.data.Prenom}}</h2>
     <div v-if="IdViewType==null">Une erreur est survenue</div>
-
-    <div class="IdView__container" v-else>
+    <!--Section si ID est un joueur-->
+    <div class="IdView__container" v-else-if="IdViewType=='Joueurs'">
       <div class="IdView__container--player lg-block">
         <div class="IdView__container--player__photo">
           <img src="../assets//img//29348.jpg" alt />
@@ -53,7 +53,7 @@
               </svg>
             </span>
           </p>
-          <p>Nombre de tournois effectué : {{}}</p>
+          <p>Nombre de tournois effectué : {{ IdData.data.Tournois.length }}</p>
           <p>
             Renouvellement de l'option :
             <span
@@ -96,15 +96,77 @@
         <h3>Inscriptions tournois</h3>
         <div v-if="false">Aucune inscription à un tournoi</div>
         <ul v-else>
-          <li v-for="(Tournoi,index) in IdData.data.Tournois" :key="index">{{Tournoi.fields.Nom}}</li>
+          <li v-for="(Tournoi,index) in IdData.data.Tournois" :key="index">
+            <router-link :to="'/'+Tournoi.fields.lien_Badiste">{{Tournoi.fields.Nom}}</router-link>
+          </li>
         </ul>
       </div>
     </div>
+    <!--END Section si ID est un joueur-->
+
+    <!--Section si ID est un tournoi-->
+    <div class="IdView__container" v-else-if="IdViewType=='Tournois'">
+      <div class="IdView__container--tournoi lg-block">
+        <div class="IdView__container--tournoi">
+          <div class="IdView__container--tournoi__dates">
+            <p>Du {{IdData.data.Date_debut.split("-").reverse().join('-')}} au {{IdData.data.Date_Fin.split("-").reverse().join('-')}}</p>
+            <table class="array-envois">
+              <thead>
+                <tr>
+                  <th colspan="3">Dates limites d'inscription</th>
+                </tr>
+                <tr>
+                  <th>Envoi 1</th>
+                  <th>Envoi 2</th>
+                  <th>Envoi 3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th v-if="IdData.data.Envoi_1">{{IdData.data.Envoi_1}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="IdData.data.Envoi_2">{{IdData.data.Envoi_2}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="IdData.data.Envoi_3">{{IdData.data.Envoi_3}}</th>
+                  <th v-else>Pas d'envoi</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="IdView__container--tournoi__series">
+            <p>Tableaux joués :</p>
+            <p v-if="IdData.data.Simples">Simples le {{IdData.data.Date_Simples[0]}}</p>
+            <p v-if="IdData.data.Doubles">Doubles le {{IdData.data.Date_Doubles[0]}}</p>
+            <p v-if="IdData.data.Mixtes">Mixtes le {{IdData.data.Date_Mixtes[0]}}</p>
+            <p>Séries jouées:</p>
+            <p v-if="IdData.data.Series">{{IdData.data.Series}}</p>
+            <p v-else>Non renseigné</p>
+          </div>
+          <div class="IdView__container--tournoi__localisation">
+            <p>Adresse:</p>
+            <p v-if="IdData.data.Adresse">{{IdData.data.Adresse}}</p>
+            <p v-else>Non renseignée</p>
+          </div>
+        </div>
+        <hr />
+        <div class="IdView__container--tournoi__genHTML">
+          <button @click="genHTML">Générer HTML</button>
+          <p>{{HTMLgenere}}</p>
+        </div>
+      </div>
+      <!--Section joueurs inscrits au tournoi de l'id-->
+      <div>
+        <p>Liste des inscrits</p>
+      </div>
+      <!--END Section joueurs inscrits au tournoi de l'id-->
+    </div>
+    <!--END Section si ID est un tournoi-->
   </section>
 </template>
 
 <script>
 import AirtableManager from "@/airtableManager.js";
+import { mapState } from "vuex";
 
 export default {
   name: "IdView",
@@ -114,22 +176,50 @@ export default {
         id: this.$route.query.id,
         data: "",
       },
+      HTMLgenere: "",
     };
   },
-  props: {
-    IdViewType: {
-      type: String,
-      default: "Joueurs",
-    },
+  computed: {
+    ...mapState(["IdViewType"]),
   },
+  props: {},
   mounted() {
     AirtableManager.IdDetail(this.IdViewType, this.IdData, this.ListTournoi);
     console.log(this.IdData);
+  },
+  methods: {
+    genHTML: function () {
+      console.log("test");
+      this.HTMLgenere =
+        '<h3><a href="' +
+        this.IdData.data.Lien_Badiste +
+        '" style="color: #a500a8; font-weight: bold; text-decoration: underline; font-size: 18px;">' +
+        this.IdData.data.Date_debut +
+        " au " +
+        this.IdData.data.Date_Fin +
+        ": " +
+        this.IdData.data.Nom +
+        '</a></h3><!-- Date d\'envoi --><table style="border-collapse: collapse; width: 313px; font-size: 13px;"><tbody><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">1er envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_1 +
+        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_2 +
+        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">3eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_3 +
+        '"</td></tr></tbody></table>"/*<!-- ou TROP TARD--><p><span style="color: #193e72; font-size: 14px; font-style: italic;">Trop tard : <span style="font-weight: 400; font-family: arial; font-size: 16px; color: #f98714;">Inscriptions closes</span></p>*/<!-- LES INFOS DU TOURNOI --><div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;"><!--INDIQUER TABLEAUX JOUES-->Mixtes / Doubles</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;"><!--Ecrire les informations du tournoi ici-->...</span></p></div><hr />';
+    },
   },
 };
 </script>
 
 <style lang="scss">
+.array-envois {
+  border: 0.5px solid black;
+  & th {
+    text-align: center;
+    border: 0.5px solid black;
+  }
+}
+
 .IdView {
   &__container {
     display: flex;
