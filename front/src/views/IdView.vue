@@ -1,0 +1,260 @@
+<template>
+  <section class="IdView">
+    <h2 class="id__name">{{IdData.data.Nom}} {{IdData.data.Prenom}}</h2>
+    <div v-if="IdViewType==null">Une erreur est survenue</div>
+    <!--Section si ID est un joueur-->
+    <div class="IdView__container" v-else-if="IdViewType=='Joueurs'">
+      <div class="IdView__container--player lg-block">
+        <div class="IdView__container--player__photo">
+          <img src="../assets//img//29348.jpg" alt />
+        </div>
+        <div class="IdView__container--player__coordonnees">
+          <p>
+            Mail :
+            <a :href="'mailto:'+IdData.data.Mail">{{IdData.data.Mail}}</a>
+          </p>
+          <p>
+            Tel :
+            <a :href="'tel:'+IdData.data.Telephone">{{IdData.data.Telephone}}</a>
+          </p>
+        </div>
+        <hr />
+        <div class="IdView__container--player__options">
+          <p>
+            Option tournois :
+            <span class="succes" v-if="IdData.data.OptionTournoi==true">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-hand-thumbs-up"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16v-1c.563 0 .901-.272 1.066-.56a.865.865 0 0 0 .121-.416c0-.12-.035-.165-.04-.17l-.354-.354.353-.354c.202-.201.407-.511.505-.804.104-.312.043-.441-.005-.488l-.353-.354.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315L12.793 9l.353-.354c.353-.352.373-.713.267-1.02-.122-.35-.396-.593-.571-.652-.653-.217-1.447-.224-2.11-.164a8.907 8.907 0 0 0-1.094.171l-.014.003-.003.001a.5.5 0 0 1-.595-.643 8.34 8.34 0 0 0 .145-4.726c-.03-.111-.128-.215-.288-.255l-.262-.065c-.306-.077-.642.156-.667.518-.075 1.082-.239 2.15-.482 2.85-.174.502-.603 1.268-1.238 1.977-.637.712-1.519 1.41-2.614 1.708-.394.108-.62.396-.62.65v4.002c0 .26.22.515.553.55 1.293.137 1.936.53 2.491.868l.04.025c.27.164.495.296.776.393.277.095.63.163 1.14.163h3.5v1H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"
+                />
+              </svg>
+            </span>
+            <span v-else>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-hand-thumbs-down noSucces"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28v1c.563 0 .901.272 1.066.56.086.15.121.3.121.416 0 .12-.035.165-.04.17l-.354.353.353.354c.202.202.407.512.505.805.104.312.043.44-.005.488l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.415-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.353.352.373.714.267 1.021-.122.35-.396.593-.571.651-.653.218-1.447.224-2.11.164a8.907 8.907 0 0 1-1.094-.17l-.014-.004H9.62a.5.5 0 0 0-.595.643 8.34 8.34 0 0 1 .145 4.725c-.03.112-.128.215-.288.255l-.262.066c-.306.076-.642-.156-.667-.519-.075-1.081-.239-2.15-.482-2.85-.174-.502-.603-1.267-1.238-1.977C5.597 8.926 4.715 8.23 3.62 7.93 3.226 7.823 3 7.534 3 7.28V3.279c0-.26.22-.515.553-.55 1.293-.138 1.936-.53 2.491-.869l.04-.024c.27-.165.495-.296.776-.393.277-.096.63-.163 1.14-.163h3.5v-1H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"
+                />
+              </svg>
+            </span>
+          </p>
+          <p>Nombre de tournois effectué : {{ IdData.data.Tournois.length }}</p>
+          <p>
+            Renouvellement de l'option :
+            <span
+              class="succes"
+              v-if="IdData.data.RenouvelOptionTournoi==true"
+            >
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-hand-thumbs-up"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16v-1c.563 0 .901-.272 1.066-.56a.865.865 0 0 0 .121-.416c0-.12-.035-.165-.04-.17l-.354-.354.353-.354c.202-.201.407-.511.505-.804.104-.312.043-.441-.005-.488l-.353-.354.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315L12.793 9l.353-.354c.353-.352.373-.713.267-1.02-.122-.35-.396-.593-.571-.652-.653-.217-1.447-.224-2.11-.164a8.907 8.907 0 0 0-1.094.171l-.014.003-.003.001a.5.5 0 0 1-.595-.643 8.34 8.34 0 0 0 .145-4.726c-.03-.111-.128-.215-.288-.255l-.262-.065c-.306-.077-.642.156-.667.518-.075 1.082-.239 2.15-.482 2.85-.174.502-.603 1.268-1.238 1.977-.637.712-1.519 1.41-2.614 1.708-.394.108-.62.396-.62.65v4.002c0 .26.22.515.553.55 1.293.137 1.936.53 2.491.868l.04.025c.27.164.495.296.776.393.277.095.63.163 1.14.163h3.5v1H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"
+                />
+              </svg>
+            </span>
+            <span v-else>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-hand-thumbs-down noSucces"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28v1c.563 0 .901.272 1.066.56.086.15.121.3.121.416 0 .12-.035.165-.04.17l-.354.353.353.354c.202.202.407.512.505.805.104.312.043.44-.005.488l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.415-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.353.352.373.714.267 1.021-.122.35-.396.593-.571.651-.653.218-1.447.224-2.11.164a8.907 8.907 0 0 1-1.094-.17l-.014-.004H9.62a.5.5 0 0 0-.595.643 8.34 8.34 0 0 1 .145 4.725c-.03.112-.128.215-.288.255l-.262.066c-.306.076-.642-.156-.667-.519-.075-1.081-.239-2.15-.482-2.85-.174-.502-.603-1.267-1.238-1.977C5.597 8.926 4.715 8.23 3.62 7.93 3.226 7.823 3 7.534 3 7.28V3.279c0-.26.22-.515.553-.55 1.293-.138 1.936-.53 2.491-.869l.04-.024c.27-.165.495-.296.776-.393.277-.096.63-.163 1.14-.163h3.5v-1H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"
+                />
+              </svg>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="sm-block">
+        <h3>Inscriptions tournois</h3>
+        <div v-if="false">Aucune inscription à un tournoi</div>
+        <ul v-else>
+          <li v-for="(Tournoi,index) in IdData.data.Tournois" :key="index">
+            <router-link :to="'/'+Tournoi.fields.lien_Badiste">{{Tournoi.fields.Nom}}</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--END Section si ID est un joueur-->
+
+    <!--Section si ID est un tournoi-->
+    <div class="IdView__container" v-else-if="IdViewType=='Tournois'">
+      <div class="IdView__container--tournoi lg-block">
+        <div class="IdView__container--tournoi">
+          <div class="IdView__container--tournoi__dates">
+            <p>Du {{IdData.data.Date_debut.split("-").reverse().join('-')}} au {{IdData.data.Date_Fin.split("-").reverse().join('-')}}</p>
+            <table class="array-envois">
+              <thead>
+                <tr>
+                  <th colspan="3">Dates limites d'inscription</th>
+                </tr>
+                <tr>
+                  <th>Envoi 1</th>
+                  <th>Envoi 2</th>
+                  <th>Envoi 3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th v-if="IdData.data.Envoi_1">{{IdData.data.Envoi_1}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="IdData.data.Envoi_2">{{IdData.data.Envoi_2}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="IdData.data.Envoi_3">{{IdData.data.Envoi_3}}</th>
+                  <th v-else>Pas d'envoi</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="IdView__container--tournoi__series">
+            <p>Tableaux joués :</p>
+            <p v-if="IdData.data.Simples">Simples le {{IdData.data.Date_Simples[0]}}</p>
+            <p v-if="IdData.data.Doubles">Doubles le {{IdData.data.Date_Doubles[0]}}</p>
+            <p v-if="IdData.data.Mixtes">Mixtes le {{IdData.data.Date_Mixtes[0]}}</p>
+            <p>Séries jouées:</p>
+            <p v-if="IdData.data.Series">{{IdData.data.Series}}</p>
+            <p v-else>Non renseigné</p>
+          </div>
+          <div class="IdView__container--tournoi__localisation">
+            <p>Adresse:</p>
+            <p v-if="IdData.data.Adresse">{{IdData.data.Adresse}}</p>
+            <p v-else>Non renseignée</p>
+          </div>
+        </div>
+        <hr />
+        <div class="IdView__container--tournoi__genHTML">
+          <button @click="genHTML">Générer HTML</button>
+          <p>{{HTMLgenere}}</p>
+        </div>
+      </div>
+      <!--Section joueurs inscrits au tournoi de l'id-->
+      <div>
+        <p>Liste des inscrits</p>
+      </div>
+      <!--END Section joueurs inscrits au tournoi de l'id-->
+    </div>
+    <!--END Section si ID est un tournoi-->
+  </section>
+</template>
+
+<script>
+import AirtableManager from "@/airtableManager.js";
+import { mapState } from "vuex";
+
+export default {
+  name: "IdView",
+  data() {
+    return {
+      IdData: {
+        id: this.$route.query.id,
+        data: "",
+      },
+      HTMLgenere: "",
+    };
+  },
+  computed: {
+    ...mapState(["IdViewType"]),
+  },
+  props: {},
+  mounted() {
+    AirtableManager.IdDetail(this.IdViewType, this.IdData, this.ListTournoi);
+    console.log(this.IdData);
+  },
+  methods: {
+    genHTML: function () {
+      console.log("test");
+      this.HTMLgenere =
+        '<h3><a href="' +
+        this.IdData.data.Lien_Badiste +
+        '" style="color: #a500a8; font-weight: bold; text-decoration: underline; font-size: 18px;">' +
+        this.IdData.data.Date_debut +
+        " au " +
+        this.IdData.data.Date_Fin +
+        ": " +
+        this.IdData.data.Nom +
+        '</a></h3><!-- Date d\'envoi --><table style="border-collapse: collapse; width: 313px; font-size: 13px;"><tbody><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">1er envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_1 +
+        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_2 +
+        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">3eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
+        this.IdData.data.Envoi_3 +
+        '"</td></tr></tbody></table>"/*<!-- ou TROP TARD--><p><span style="color: #193e72; font-size: 14px; font-style: italic;">Trop tard : <span style="font-weight: 400; font-family: arial; font-size: 16px; color: #f98714;">Inscriptions closes</span></p>*/<!-- LES INFOS DU TOURNOI --><div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;"><!--INDIQUER TABLEAUX JOUES-->Mixtes / Doubles</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;"><!--Ecrire les informations du tournoi ici-->...</span></p></div><hr />';
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.array-envois {
+  border: 0.5px solid black;
+  & th {
+    text-align: center;
+    border: 0.5px solid black;
+  }
+}
+
+.IdView {
+  &__container {
+    display: flex;
+    & .lg-block {
+      flex: 3;
+      margin: 1rem;
+      padding: 1rem;
+      background-color: $BG-card;
+    }
+    & .sm-block {
+      flex: 2;
+      margin: 1rem;
+      padding: 1rem;
+      background-color: $BG-card;
+    }
+    //Joueurs
+    &--player {
+      &__photo {
+        width: 20%;
+      }
+      &__options {
+        & p {
+          align-items: center;
+          display: flex;
+        }
+        & .succes {
+          font-size: 2rem;
+          color: green;
+        }
+        & .noSucces {
+          font-size: 2rem;
+          color: red;
+        }
+      }
+    }
+  }
+}
+</style>
