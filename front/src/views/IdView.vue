@@ -189,23 +189,71 @@ export default {
   },
   methods: {
     genHTML: function () {
-      console.log("test");
+      let infoTournoi = {
+        nom: this.IdData.data.Nom,
+        lien: this.IdData.data.Lien_Badiste,
+        date:
+          this.IdData.data.Date_debut.split("-")[2] +
+          " au " +
+          this.IdData.data.Date_Fin.split("-")[2],
+        //TODO: ajouter le mois
+        //! Attention au changement de mois => function à faire
+        envoi1: this.IdData.data.Envoi_1.split("-").reverse().join("-"),
+        envoi2: this.IdData.data.Envoi_2.split("-").reverse().join("-"),
+        envoi3: this.IdData.data.Envoi_3.split("-").reverse().join("-"),
+        infoSup:this.IdData.data.infoSup,
+        //TODO:Mise en forme par une function
+      };
+      let htmlcss = {
+        h3: "<h3>",
+        h3End: "</h3>",
+        a: '<a href="',
+        aStyle:
+          ' style="color: #a500a8; font-weight: bold; text-decoration: underline; font-size: 18px;">',
+        aEnd: "</a>",
+        table:
+          '<table style="border-collapse: collapse; width: 313px; font-size: 13px;"><tbody>',
+          tableFin:'</tbody></table>',
+        tableL1:
+          '<tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">1er envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
+        tableL2:
+          '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
+        tableL3:
+          '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
+        finLigne: "</td></tr>",
+        divInfo:'<div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;">',
+        divInfoSuite:'</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;">',
+        divInfoEnd:'</span></p></div><hr />'
+      };
       this.HTMLgenere =
-        '<h3><a href="' +
-        this.IdData.data.Lien_Badiste +
-        '" style="color: #a500a8; font-weight: bold; text-decoration: underline; font-size: 18px;">' +
-        this.IdData.data.Date_debut +
-        " au " +
-        this.IdData.data.Date_Fin +
+        htmlcss.h3 +
+        htmlcss.a +
+        infoTournoi.lien +
+        '"' +
+        htmlcss.aStyle +
+        infoTournoi.date +
         ": " +
-        this.IdData.data.Nom +
-        '</a></h3><!-- Date d\'envoi --><table style="border-collapse: collapse; width: 313px; font-size: 13px;"><tbody><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">1er envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
-        this.IdData.data.Envoi_1 +
-        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
-        this.IdData.data.Envoi_2 +
-        '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">3eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">' +
-        this.IdData.data.Envoi_3 +
-        '"</td></tr></tbody></table>"/*<!-- ou TROP TARD--><p><span style="color: #193e72; font-size: 14px; font-style: italic;">Trop tard : <span style="font-weight: 400; font-family: arial; font-size: 16px; color: #f98714;">Inscriptions closes</span></p>*/<!-- LES INFOS DU TOURNOI --><div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;"><!--INDIQUER TABLEAUX JOUES-->Mixtes / Doubles</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;"><!--Ecrire les informations du tournoi ici-->...</span></p></div><hr />';
+        infoTournoi.nom +
+        htmlcss.aEnd +
+        htmlcss.h3End +
+        "<!-- Date d'envoi -->" +
+        htmlcss.table +
+        htmlcss.tableL1 +
+        infoTournoi.envoi1 +
+        htmlcss.finLigne +
+        htmlcss.tableL2 +
+        infoTournoi.envoi2 +
+        htmlcss.finLigne +
+        htmlcss.tableL3 +
+        infoTournoi.envoi3 +
+        htmlcss.finLigne+
+        htmlcss.tableFin+
+        htmlcss.divInfo+
+        //TODO: Function permettant de fiabiliser cela à créer
+        'Simples / Mixtes / Doubles ?'+
+        htmlcss.divInfoSuite+
+        infoTournoi.infoSup +
+        htmlcss.divInfoEnd;
     },
   },
 };
