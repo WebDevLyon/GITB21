@@ -25,7 +25,7 @@
             </svg>
             <span>Mise en ligne</span>
           </div>
-          <div class="website-status" v-if="tournoi.fields.A_saisir=='A Faire'">
+          <div class="website-status" v-else-if="tournoi.fields.A_saisir=='A Faire'">
             <svg
               width="1em"
               height="1em"
@@ -59,7 +59,9 @@
         <td>{{tournoi.fields.Envoi_3}}</td>
         <td>
           <span v-if="tournoi.fields.Simples">Simples</span>
+          <span v-if="tournoi.fields.Doubles && tournoi.fields.Simples || tournoi.fields.Simples && tournoi.fields.Mixtes"> / </span>
           <span v-if="tournoi.fields.Doubles">Doubles</span>
+          <span v-if="tournoi.fields.Doubles && tournoi.fields.Mixtes"> / </span>
           <span v-if="tournoi.fields.Mixtes">Mixtes</span>
         </td>
         <td>{{tournoi.fields.Series}}</td>

@@ -56,8 +56,10 @@ body {
 table {
     margin: auto;
     border-collapse: collapse;
-    text-align: left;
     width: 90%;
+    & th,td{
+        text-align:center;
+    }
     & thead {
         background-color: $BG-headerArray;
         & tr th {
