@@ -215,7 +215,6 @@ export default {
 .array-envois {
   border: 0.5px solid black;
   & th {
-    text-align: center;
     border: 0.5px solid black;
   }
 }
