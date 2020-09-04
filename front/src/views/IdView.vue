@@ -109,34 +109,10 @@
       <div class="IdView__container--tournoi lg-block">
         <div class="IdView__container--tournoi">
           <TournoiView :data="IdData.data" />
-          <div class="IdView__container--tournoi__dates">
-            <table class="array-envois">
-              <thead>
-                <tr>
-                  <th colspan="3">Dates limites d'inscription</th>
-                </tr>
-                <tr>
-                  <th>Envoi 1</th>
-                  <th>Envoi 2</th>
-                  <th>Envoi 3</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th v-if="IdData.data.Envoi_1">{{IdData.data.Envoi_1}}</th>
-                  <th v-else>Pas d'envoi</th>
-                  <th v-if="IdData.data.Envoi_2">{{IdData.data.Envoi_2}}</th>
-                  <th v-else>Pas d'envoi</th>
-                  <th v-if="IdData.data.Envoi_3">{{IdData.data.Envoi_3}}</th>
-                  <th v-else>Pas d'envoi</th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
         <hr />
         <div class="IdView__container--tournoi__genHTML">
-          <button @click="genHTML">Générer HTML</button>
+          <button class="IdView__container--tournoi__genHTML__btn" @click="genHTML">Générer HTML</button>
           <p>{{HTMLgenere}}</p>
         </div>
       </div>
@@ -291,6 +267,15 @@ export default {
         & .noSucces {
           font-size: 2rem;
           color: red;
+        }
+      }
+    }
+    //Tournois
+    &--tournoi {
+      &__genHTML {
+        &__btn {
+          display: block;
+          margin: 0 auto;
         }
       }
     }

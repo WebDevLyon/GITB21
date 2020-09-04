@@ -53,6 +53,32 @@
         <p>En cours de développement</p>
       </div>
     </div>
+    <!--TEST-->
+    <div class="panel__infos--noborder">
+            <table class="array-envois">
+              <thead>
+                <tr>
+                  <th colspan="3">Dates limites d'inscription</th>
+                </tr>
+                <tr>
+                  <th>Envoi 1</th>
+                  <th>Envoi 2</th>
+                  <th>Envoi 3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th v-if="data.Envoi_1">{{data.Envoi_1}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="data.Envoi_2">{{data.Envoi_2}}</th>
+                  <th v-else>Pas d'envoi</th>
+                  <th v-if="data.Envoi_3">{{data.Envoi_3}}</th>
+                  <th v-else>Pas d'envoi</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--END TEST-->
   </div>
 </template>
 
