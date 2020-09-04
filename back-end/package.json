@@ -1,0 +1,11 @@
+{
+  "name": "gitb",
+  "version": "1.0.0",
+  "description": "Back-end de l'interface de l'appli GITB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolas Lachise alias Web Dev Lyon",
+  "license": "ISC"
+}
