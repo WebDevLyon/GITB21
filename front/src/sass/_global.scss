@@ -1,3 +1,9 @@
+//Font
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 //Color Panel
 $BG-nav: #2a58ae;
 $BG-searchbar: #fdfdfd;
@@ -7,15 +13,15 @@ $BG-card-icon: #e9edf0;
 $Color-name: #2a58ae;
 $BG-headerArray: #c4d2e4;
 $BG-headerBody: #fdfdfd;
-
 body {
     margin: 0;
 }
 
-.router-link{
+.router-link {
     color: $BG-content;
     text-decoration: none;
 }
+
 //Structure de la page
 .page-content {
     //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
@@ -25,6 +31,7 @@ body {
     width: 100%;
     max-height: 100vh;
 }
+
 .nav {
     //Bar à gauche largeur 1/5 de l'écran
     flex: 1;
@@ -49,6 +56,7 @@ body {
         }
     }
 }
+
 .view {
     flex: 4;
 }
@@ -57,8 +65,9 @@ table {
     margin: auto;
     border-collapse: collapse;
     width: 90%;
-    & th,td{
-        text-align:center;
+    & th,
+    td {
+        text-align: center;
     }
     & thead {
         background-color: $BG-headerArray;

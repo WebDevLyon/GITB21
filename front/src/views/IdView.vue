@@ -108,8 +108,8 @@
     <div class="IdView__container" v-else-if="IdViewType=='Tournois'">
       <div class="IdView__container--tournoi lg-block">
         <div class="IdView__container--tournoi">
+          <TournoiView :data="IdData.data" />
           <div class="IdView__container--tournoi__dates">
-            <p>Du {{IdData.data.Date_debut.split("-").reverse().join('-')}} au {{IdData.data.Date_Fin.split("-").reverse().join('-')}}</p>
             <table class="array-envois">
               <thead>
                 <tr>
@@ -133,20 +133,6 @@
               </tbody>
             </table>
           </div>
-          <div class="IdView__container--tournoi__series">
-            <p>Tableaux joués :</p>
-            <p v-if="IdData.data.Simples">Simples le {{IdData.data.Date_Simples[0]}}</p>
-            <p v-if="IdData.data.Doubles">Doubles le {{IdData.data.Date_Doubles[0]}}</p>
-            <p v-if="IdData.data.Mixtes">Mixtes le {{IdData.data.Date_Mixtes[0]}}</p>
-            <p>Séries jouées:</p>
-            <p v-if="IdData.data.Series">{{IdData.data.Series}}</p>
-            <p v-else>Non renseigné</p>
-          </div>
-          <div class="IdView__container--tournoi__localisation">
-            <p>Adresse:</p>
-            <p v-if="IdData.data.Adresse">{{IdData.data.Adresse}}</p>
-            <p v-else>Non renseignée</p>
-          </div>
         </div>
         <hr />
         <div class="IdView__container--tournoi__genHTML">
@@ -167,9 +153,13 @@
 <script>
 import AirtableManager from "@/airtableManager.js";
 import { mapState } from "vuex";
+import TournoiView from "@/components/TournoiView";
 
 export default {
   name: "IdView",
+  components: {
+    TournoiView,
+  },
   data() {
     return {
       IdData: {
@@ -201,7 +191,7 @@ export default {
         envoi1: this.IdData.data.Envoi_1.split("-").reverse().join("-"),
         envoi2: this.IdData.data.Envoi_2.split("-").reverse().join("-"),
         envoi3: this.IdData.data.Envoi_3.split("-").reverse().join("-"),
-        infoSup:this.IdData.data.infoSup,
+        infoSup: this.IdData.data.infoSup,
         //TODO:Mise en forme par une function
       };
       let htmlcss = {
@@ -213,7 +203,7 @@ export default {
         aEnd: "</a>",
         table:
           '<table style="border-collapse: collapse; width: 313px; font-size: 13px;"><tbody>',
-          tableFin:'</tbody></table>',
+        tableFin: "</tbody></table>",
         tableL1:
           '<tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">1er envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
         tableL2:
@@ -221,9 +211,11 @@ export default {
         tableL3:
           '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
         finLigne: "</td></tr>",
-        divInfo:'<div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;">',
-        divInfoSuite:'</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;">',
-        divInfoEnd:'</span></p></div><hr />'
+        divInfo:
+          '<div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;">',
+        divInfoSuite:
+          '</span></p><p>L\'info en + : <span style="font-weight: 700; color: #000000;">',
+        divInfoEnd: "</span></p></div><hr />",
       };
       this.HTMLgenere =
         htmlcss.h3 +
@@ -246,12 +238,12 @@ export default {
         htmlcss.finLigne +
         htmlcss.tableL3 +
         infoTournoi.envoi3 +
-        htmlcss.finLigne+
-        htmlcss.tableFin+
-        htmlcss.divInfo+
+        htmlcss.finLigne +
+        htmlcss.tableFin +
+        htmlcss.divInfo +
         //TODO: Function permettant de fiabiliser cela à créer
-        'Simples / Mixtes / Doubles ?'+
-        htmlcss.divInfoSuite+
+        "Simples / Mixtes / Doubles ?" +
+        htmlcss.divInfoSuite +
         infoTournoi.infoSup +
         htmlcss.divInfoEnd;
     },
