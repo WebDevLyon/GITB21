@@ -155,6 +155,17 @@ export default {
   },
   methods: {
     genHTML: function () {
+      //Controle des valeurs pouvant être null pour ne pas bloquer le code
+      //Initialisation des valeurs de des envois
+      let envois = {
+        envoi1: this.IdData.data.Envoi_1,//.split("-").reverse().join("-"),
+        envoi2: this.IdData.data.Envoi_2,//.split("-").reverse().join("-"),
+        envoi3: this.IdData.data.Envoi_3,//.split("-").reverse().join("-"),
+      };
+      for (const valeur in envois) {
+        if(envois[valeur]==null){
+        envois[valeur]='pas d\'envoi';
+      }}
       let infoTournoi = {
         nom: this.IdData.data.Nom,
         lien: this.IdData.data.Lien_Badiste,
@@ -164,9 +175,9 @@ export default {
           this.IdData.data.Date_Fin.split("-")[2],
         //TODO: ajouter le mois
         //! Attention au changement de mois => function à faire
-        envoi1: this.IdData.data.Envoi_1.split("-").reverse().join("-"),
-        envoi2: this.IdData.data.Envoi_2.split("-").reverse().join("-"),
-        envoi3: this.IdData.data.Envoi_3.split("-").reverse().join("-"),
+        envoi1: envois.envoi1.split("-").reverse().join("-"),
+        envoi2: envois.envoi2.split("-").reverse().join("-"),
+        envoi3: envois.envoi3.split("-").reverse().join("-"),
         infoSup: this.IdData.data.infoSup,
         //TODO:Mise en forme par une function
       };
@@ -185,7 +196,7 @@ export default {
         tableL2:
           '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
         tableL3:
-          '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">2eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
+          '</td></tr><tr><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">3eme envoi :</td><td style="border: 1px dashed black; font-family: Arial; color: #f98714; padding: 3px;">',
         finLigne: "</td></tr>",
         divInfo:
           '<div style="color: #737373; font-family: "Trebuchet MS"; font-size: 13px; font-style: italic;"><p>Type de tournoi : <span style="font-weight: 700; color: #000000;">',
@@ -222,19 +233,12 @@ export default {
         htmlcss.divInfoSuite +
         infoTournoi.infoSup +
         htmlcss.divInfoEnd;
-    },
+    }
   },
 };
 </script>
 
 <style lang="scss">
-.array-envois {
-  border: 0.5px solid black;
-  & th {
-    border: 0.5px solid black;
-  }
-}
-
 .IdView {
   &__container {
     display: flex;
