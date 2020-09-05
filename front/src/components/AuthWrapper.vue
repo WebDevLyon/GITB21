@@ -24,11 +24,9 @@ export default {
   methods: {},
   mounted() {
     //initialisation des informations de l'user
-    if (
-      window.localStorage.getItem("userData")
-    ) {
+    if (window.localStorage.getItem("userData")) {
       console.log("info ok");
-      this.userData = {
+      this.$store.state.userData = {
         userId: JSON.parse(window.localStorage.getItem("userData")).userId,
         token: JSON.parse(window.localStorage.getItem("userData")).token,
         associate: JSON.parse(window.localStorage.getItem("userData"))
@@ -38,10 +36,6 @@ export default {
     } else {
       console.log("pas d'info");
     }
-    console.log('lancement request')
-    //const userToken =
-    //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjUyYjgwZGIzYzI3OTI2NThkMDY2ZDUiLCJpYXQiOjE1OTkzMDM2ODksImV4cCI6MTU5OTM5MDA4OX0.WC4dujuMpGNS_9tirTiFDKWEN7ero9KfYmkQ02p_4EQ";
-    //const userId = { userId: "5f52b80db3c2792658d066d5" };
     if (
       this.userData.associate ||
       this.userData.token ||
@@ -65,7 +59,6 @@ export default {
       // S'il existe appel api pour vérification
       //! si erreur retourner false
       //* sinon lancer app.vue avec true
-      this.authCkeck = true;
     } else {
       this.authCkeck = false;
     }

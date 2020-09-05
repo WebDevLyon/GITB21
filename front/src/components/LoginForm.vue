@@ -24,7 +24,7 @@
               </label>
             </div>
             <div class="group">
-              <input type="submit" class="button" value="Sign In" />
+              <input type="submit" class="button" value="Sign In" @click="login" />
             </div>
             <div class="hr"></div>
             <div class="foot-lnk">
@@ -71,7 +71,23 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
+  name: "LogiForm",
+  data() {
+    return {
+      authCkeck: false,
+      data: {
+        email: "nijlak@nij.fr",
+        password: "azerty",
+      },
+    };
+  },
+  computed: {
+    ...mapState(["IdViewType", "userData"]),
+  },
   props: {
     errorMessage: {
       type: String,
@@ -80,11 +96,23 @@ export default {
   },
 
   methods: {
-    submit() {
-      this.$emit("submit", {
-        username: this.username,
-        password: this.password,
-      });
+    login() {
+      axios
+        .post("http://localhost:3000/api/auth/login", this.data)
+        .then((response) => {
+          console.log("test réussi", response);
+          let userData={
+            userId: response.data.userId,
+            token: response.data.token,
+            associate: response.data.association,
+            level: response.data.level
+          }
+          localStorage.setItem('userData', JSON.stringify(userData));
+          window.location.reload()
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
     },
   },
 };
