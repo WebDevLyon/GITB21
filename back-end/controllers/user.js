@@ -2,6 +2,25 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+exports.auth = (req, res, next) => {
+    console.log(req.body.userId)
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const userId = decodedToken.userId;
+        console.log('decodetoken', decodedToken)
+        if (req.body.userId && req.body.userId !== userId) {
+            throw 'Invalid user ID';
+        } else {
+            res.status(200).json({ msg: 'Token toujours valide' })
+        }
+    } catch {
+        res.status(401).json({
+            error: new Error('Invalid request!')
+        });
+    }
+};
+
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {

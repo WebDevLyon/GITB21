@@ -14,8 +14,8 @@
               <input id="user" type="text" class="input" />
             </div>
             <div class="group">
-              <label for="pass" class="label">Password</label>
-              <input id="pass" type="password" class="input" data-type="password" />
+              <label for="password" class="label">Password</label>
+              <input id="password" type="password" class="input" data-type="password" />
             </div>
             <div class="group">
               <input id="check" type="checkbox" class="check" checked />
