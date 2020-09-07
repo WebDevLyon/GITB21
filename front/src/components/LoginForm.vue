@@ -33,10 +33,6 @@
           </div>
           <div class="sign-up-htm">
             <div class="group">
-              <label for="nom" class="label">Nom</label>
-              <input id="nom" type="text" class="input" />
-            </div>
-            <div class="group">
               <label for="associate" class="label">Association</label>
               <input id="associate" type="text" class="input" />
             </div>
@@ -80,8 +76,8 @@ export default {
     return {
       authCkeck: false,
       data: {
-        email: "nijlak@nij.fr",
-        password: "azerty",
+        email: null, //"nijlak@nij.fr",
+        password: null, //"azerty",
       },
     };
   },
@@ -97,6 +93,10 @@ export default {
 
   methods: {
     login() {
+      //Récupération des value du form
+      this.data.email = document.getElementById('user').value
+      this.data.password = document.getElementById('password').value
+      console.log('data',this.data);
       axios
         .post("http://localhost:3000/api/auth/login", this.data)
         .then((response) => {
