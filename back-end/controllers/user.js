@@ -2,6 +2,25 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+exports.auth = (req, res, next) => {
+    console.log(req.body.userId)
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const userId = decodedToken.userId;
+        console.log('decodetoken', decodedToken)
+        if (req.body.userId && req.body.userId !== userId) {
+            throw 'Invalid user ID';
+        } else {
+            res.status(200).json({ msg: 'Token toujours valide' })
+        }
+    } catch {
+        res.status(401).json({
+            error: new Error('Invalid request!')
+        });
+    }
+};
+
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
@@ -9,6 +28,7 @@ exports.signup = (req, res, next) => {
             const user = new User({
                 name: req.body.name,
                 email: req.body.email,
+                association: req.body.association,
                 password: hash
             });
             user.save()
@@ -31,7 +51,12 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user._id,
-                        token: jwt.sign({ userId: user._id },
+                        level: user.level,
+                        association: user.association,
+                        token: jwt.sign({
+                            userId: user._id,
+                            level: user.level,
+                        },
                             'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
                         )
                     });
