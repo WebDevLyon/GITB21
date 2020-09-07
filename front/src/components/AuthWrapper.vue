@@ -25,13 +25,20 @@ export default {
   mounted() {
     //initialisation des informations de l'user
     if (window.localStorage.getItem("userData")) {
-      console.log("info ok");
       this.$store.state.userData = {
         userId: JSON.parse(window.localStorage.getItem("userData")).userId,
         token: JSON.parse(window.localStorage.getItem("userData")).token,
         associate: JSON.parse(window.localStorage.getItem("userData"))
           .associate,
         level: JSON.parse(window.localStorage.getItem("userData")).level,
+      };
+    } else if (window.sessionStorage.getItem("userData")) {
+      this.$store.state.userData = {
+        userId: JSON.parse(window.sessionStorage.getItem("userData")).userId,
+        token: JSON.parse(window.sessionStorage.getItem("userData")).token,
+        associate: JSON.parse(window.sessionStorage.getItem("userData"))
+          .associate,
+        level: JSON.parse(window.sessionStorage.getItem("userData")).level,
       };
     } else {
       console.log("pas d'info");

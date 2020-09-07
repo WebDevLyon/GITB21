@@ -55,10 +55,6 @@
             <div class="group">
               <input type="submit" class="button" value="Sign Up" />
             </div>
-            <div class="hr"></div>
-            <div class="foot-lnk">
-              <label for="tab-1">Already Member?</label>
-            </div>
           </div>
         </div>
       </div>
@@ -94,21 +90,24 @@ export default {
   methods: {
     login() {
       //Récupération des value du form
-      this.data.email = document.getElementById('user').value
-      this.data.password = document.getElementById('password').value
-      console.log('data',this.data);
+      this.data.email = document.getElementById("user").value;
+      this.data.password = document.getElementById("password").value;
+      let check = document.getElementById("check").checked;
       axios
         .post("http://localhost:3000/api/auth/login", this.data)
         .then((response) => {
-          console.log("test réussi", response);
-          let userData={
+          let userData = {
             userId: response.data.userId,
             token: response.data.token,
             associate: response.data.association,
-            level: response.data.level
+            level: response.data.level,
+          };
+          if (check) {
+            localStorage.setItem("userData", JSON.stringify(userData));
+          } else {
+            sessionStorage.setItem("userData", JSON.stringify(userData));
           }
-          localStorage.setItem('userData', JSON.stringify(userData));
-          window.location.reload()
+          window.location.reload();
         })
         .catch((err) => {
           console.log("error", err);
@@ -119,11 +118,6 @@ export default {
 </script>
 
 <style scoped>
-body {
-  margin: 0;
-  color: #6a6f8c;
-  font: 600 16px/18px "Roboto", sans-serif;
-}
 *,
 :after,
 :before {
