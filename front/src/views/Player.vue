@@ -2,7 +2,7 @@
   <section class="section">
     <div class="section__top">
       <h2 class="section__top__head">Joueurs</h2>
-      <div class="section__top__btnAdd" data-toggle="modal" data-target="#exampleModal">
+      <div class="section__top__btnAdd" data-toggle="modal" data-target="#exampleModal" @click="showModal">
         <svg
           width="1em"
           height="1em"
@@ -26,7 +26,7 @@
         :joueur="joueur"
       />
     </div>
-    <ModalBox />
+    <ModalBox v-show="isModalVisible" @close="closeModal" />
   </section>
 </template>
 
@@ -39,11 +39,12 @@ export default {
   name: "Player",
   components: {
     Card,
-    ModalBox
+    ModalBox,
   },
   data() {
     return {
       allJoueurs: [],
+      isModalVisible: false,
     };
   },
   mounted() {
@@ -52,6 +53,14 @@ export default {
       img.style.height = img.clientWidth + "px";
     });
     AirtableManager.liste("joueurs", this.allJoueurs);
+  },
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
   },
   //Fonction de lecture d'un fichier
   /*function charger(e){
@@ -72,17 +81,16 @@ export default {
 </script>
 
 <style lang='scss'>
-.section{
-  &__top{
+.section {
+  &__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-     &__btnAdd{
-    cursor: pointer;
-    font-size: 1.5rem;
+    &__btnAdd {
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
   }
-  }
- 
 }
 .players {
   display: flex;
