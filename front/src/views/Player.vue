@@ -2,7 +2,12 @@
   <section>
     <h2>Joueurs</h2>
     <div class="players">
-    <Card class="players__card" v-for="(joueur,index) of allJoueurs" :key="index" :joueur="joueur" />
+      <Card
+        class="players__card"
+        v-for="(joueur,index) of allJoueurs"
+        :key="index"
+        :joueur="joueur"
+      />
     </div>
   </section>
 </template>
@@ -18,8 +23,8 @@ export default {
   },
   data() {
     return {
-      allJoueurs: []
-      }
+      allJoueurs: [],
+    };
   },
   mounted() {
     let imgsCard = document.getElementsByClassName("card__block__img");
@@ -28,6 +33,21 @@ export default {
     });
     AirtableManager.liste("joueurs", this.allJoueurs);
   },
+  //Fonction de lecture d'un fichier
+  /*function charger(e){
+ 
+	var fichier = e.target.files;
+ 
+	var dv=document.createElement('textarea');
+ 
+	var charge=new FileReader();
+ 
+	charge.readAsText(fichier[0]);
+ 
+	charge.onloadend = function(e){
+		dv.textContent = e.target.result;
+		document.body.appendChild(dv);
+	}}*/
 };
 </script>
 
