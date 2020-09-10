@@ -3,10 +3,12 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const playerSchema = mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    prenom: { type: String, required: true },
+    mail: { type: String },
+    tel: { type: String },
     association: { type: String, required: true },
-    level: { type: Number, default: 3 }
+    optionTournois: { type: Boolean, default: false },
+    renouvellementOption: { type: Boolean, default: false },
 });
 
 userSchema.plugin(uniqueValidator);

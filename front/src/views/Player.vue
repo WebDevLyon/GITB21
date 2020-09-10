@@ -1,6 +1,23 @@
 <template>
-  <section>
-    <h2>Joueurs</h2>
+  <section class="section">
+    <div class="section__top">
+      <h2 class="section__top__head">Joueurs</h2>
+      <div class="section__top__btnAdd" data-toggle="modal" data-target="#exampleModal">
+        <svg
+          width="1em"
+          height="1em"
+          viewBox="0 0 16 16"
+          class="bi bi-person-plus-fill"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"
+          />
+        </svg>
+      </div>
+    </div>
     <div class="players">
       <Card
         class="players__card"
@@ -9,17 +26,20 @@
         :joueur="joueur"
       />
     </div>
+    <ModalBox />
   </section>
 </template>
 
 <script>
 import Card from "@/components/Card";
 import AirtableManager from "@/airtableManager.js";
+import ModalBox from "@/components/ModalBox";
 
 export default {
   name: "Player",
   components: {
     Card,
+    ModalBox
   },
   data() {
     return {
@@ -52,6 +72,18 @@ export default {
 </script>
 
 <style lang='scss'>
+.section{
+  &__top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+     &__btnAdd{
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  }
+ 
+}
 .players {
   display: flex;
   flex-wrap: wrap;
