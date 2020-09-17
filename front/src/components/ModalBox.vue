@@ -8,17 +8,17 @@
         <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
       </header>
       <section class="modalBox__content__body">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis, nesciunt.</p>
+        <slot name="body">
+          <p>Corps de la boite modale non renseigné... Veuillez contacter le développeur</p>
+        </slot>
       </section>
       <footer class="modalBox__content__footer">
-        Pied de page de la modal
-        <button
-          type="button"
-          class="btn-close"
-          @click="close"
-          aria-label="Close modal"
-        >Annuler</button>
-        <button type="button" class="btn-valid" @click="close">Valider</button>
+        <slot name='btn-cancel'>
+        <button type="button" class="btn-close" @click="close" aria-label="Close modal">Annuler</button></slot>
+        <slot name='btn-valid'>
+
+        <button type="button" class="btn-valid" @click="valid">Valider</button></slot>
+        <slot name='btn-suplementaire'></slot>
       </footer>
     </div>
   </div>
@@ -31,13 +31,18 @@ export default {
     close() {
       this.$emit("close");
     },
+    valid(){
+      this.$emit("valid");
+
+    }
+     
   },
 };
 </script>
 
 <style lang='scss'>
 .modalBox {
-    position: fixed;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -46,7 +51,7 @@ export default {
   box-shadow: 2px 2px 20px 1px;
   display: flex;
   &__content {
-      background-color: #fff;
+    background-color: #fff;
     overflow-x: scroll;
     width: 80%;
     margin: auto auto;
@@ -54,24 +59,32 @@ export default {
     flex-direction: column;
     height: 90%;
     &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 1rem;
-        background-color: $BG-headerArray;
-    }
-  }
-}
-.modalBox {
-  
-  &__content {
-    
-    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      background-color: $BG-headerArray;
     }
     &__body {
       flex-grow: 1;
     }
     &__footer {
+      text-align: end;
+      & button {
+        margin: 0.5rem 1rem;
+      }
+    }
+  }
+  //*Si la boite modale contient un formulaire
+  .form {
+    padding: 1rem;
+    &__group {
+      display: flex;
+      justify-content: space-around;
+      margin: 1rem 0;
+      & *{
+        flex:1;
+      }
     }
   }
 }

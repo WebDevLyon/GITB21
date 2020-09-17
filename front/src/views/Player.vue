@@ -33,9 +33,39 @@
     </div>
     <transition name="fade">
       <!-- <ModalBox v-show="isModalVisible" @close="closeModal" /> -->
-      <ModalBox v-show="isModalVisible" @close="closeModal">
+      <ModalBox v-show="isModalVisible" @close="closeModal" @valid="sendNewPlayer">
         <div slot="header">
-<h4>Ajout d'un joueur à la base de données</h4>
+          <h4>Ajout d'un joueur à la base de données</h4>
+        </div>
+        <div slot="body">
+          <form action method="get" class="form">
+            <div class="form__group">
+              <label for="nom">Nom:</label>
+              <input type="text" name="name" id="nom" required />
+            </div>
+            <div class="form__group">
+              <label for="prenom">Prénom:</label>
+              <input type="text" name="name" id="prenom" required />
+            </div>
+            <div class="form__group">
+              <label for="email">Email:</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="form__group">
+              <label for="tel">Tel:</label>
+              <input type="tel" name="tel" id="tel" required />
+            </div>
+            <div class="form__group">
+              <label for="tournoiOption">
+                Option tournois:
+                <em>(cocher si oui)</em>
+              </label>
+              <input type="checkbox" name="tournoiOption" id="tournoiOption" required />
+            </div>
+            <div class="form__group">
+              <p class="responseAPI" id="responseAPI"></p>
+            </div>
+          </form>
         </div>
       </ModalBox>
     </transition>
@@ -69,11 +99,40 @@ export default {
     AirtableManager.liste("joueurs", this.allJoueurs);
   },
   methods: {
+    //* Gestion de l'ouverture et fermeture de la boite modale
     showModal() {
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    sendNewPlayer() {
+      //*Collecte des datas pour envoi
+      let nom = document.getElementById("nom").value;
+      let prenom = document.getElementById("prenom").value;
+      let email = document.getElementById("email").value;
+      let tel = document.getElementById("tel").value;
+      let tournoiOption = document.getElementById("tournoiOption").checked;
+      //TODO: Vérification des datas à faire
+      let NewPlayer = {
+        nom: nom,
+        prenom: prenom,
+        email: email,
+        tel,
+        tournoiOption,
+      };
+
+      //Controle de l'objet envoyé
+      console.log(NewPlayer);
+
+      //Réception de la réponse de l'API
+      document.getElementById("responseAPI").textContent = "reponse API";
+
+      //attente de 2 seconde et fermeture boite modale
+      //!Ne pas fermer la boite modale si erreur de saisie ou de l'API
+      setTimeout(() => {
+        this.closeModal();
+      }, 2000);
     },
   },
   //Fonction de lecture d'un fichier
