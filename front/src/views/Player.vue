@@ -2,7 +2,12 @@
   <section class="section">
     <div class="section__top">
       <h2 class="section__top__head">Joueurs</h2>
-      <div class="section__top__btnAdd" data-toggle="modal" data-target="#exampleModal" @click="showModal">
+      <div
+        class="section__top__btnAdd"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        @click="showModal"
+      >
         <svg
           width="1em"
           height="1em"
@@ -26,7 +31,14 @@
         :joueur="joueur"
       />
     </div>
-    <ModalBox v-show="isModalVisible" @close="closeModal" />
+    <transition name="fade">
+      <!-- <ModalBox v-show="isModalVisible" @close="closeModal" /> -->
+      <ModalBox v-show="isModalVisible" @close="closeModal">
+        <div slot="header">
+<h4>Ajout d'un joueur à la base de données</h4>
+        </div>
+      </ModalBox>
+    </transition>
   </section>
 </template>
 
@@ -34,11 +46,13 @@
 import Card from "@/components/Card";
 import AirtableManager from "@/airtableManager.js";
 import ModalBox from "@/components/ModalBox";
+//import ModalBox1 from "@/components/ModalBox1";
 
 export default {
   name: "Player",
   components: {
     Card,
+    //ModalBox,
     ModalBox,
   },
   data() {
@@ -102,5 +116,13 @@ export default {
     background: $BG-card;
     margin: 0.5rem 0.2rem;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
