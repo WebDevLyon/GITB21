@@ -11,6 +11,6 @@ const playerSchema = mongoose.Schema({
     renouvellementOption: { type: Boolean, default: false },
 });
 
-userSchema.plugin(uniqueValidator);
+playerSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Player", playerSchema);

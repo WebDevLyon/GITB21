@@ -60,7 +60,9 @@
                 Option tournois:
                 <em>(cocher si oui)</em>
               </label>
-              <input type="checkbox" name="tournoiOption" id="tournoiOption" required />
+              <div>
+                <input type="checkbox" name="tournoiOption" id="tournoiOption" required />
+              </div>
             </div>
             <div class="form__group">
               <p class="responseAPI" id="responseAPI"></p>
@@ -76,6 +78,7 @@
 import Card from "@/components/Card";
 import AirtableManager from "@/airtableManager.js";
 import ModalBox from "@/components/ModalBox";
+import axios from "axios";
 //import ModalBox1 from "@/components/ModalBox1";
 
 export default {
@@ -115,16 +118,26 @@ export default {
       let tournoiOption = document.getElementById("tournoiOption").checked;
       //TODO: Vérification des datas à faire
       let NewPlayer = {
-        nom: nom,
-        prenom: prenom,
-        email: email,
-        tel,
-        tournoiOption,
+        'nom': nom,
+        'prenom': prenom,
+        'email': email,
+        'tel':tel,
+        'tournoiOption':tournoiOption,
       };
 
       //Controle de l'objet envoyé
       console.log(NewPlayer);
 
+      //*Envoie des datas à l'API
+      axios
+        .post("http://localhost:3000/api/player/add", NewPlayer)
+        .then((response) => {
+          console.log(response)
+          }
+        )
+        .catch((err) => {
+          console.log("error", err);
+        });
       //Réception de la réponse de l'API
       document.getElementById("responseAPI").textContent = "reponse API";
 
