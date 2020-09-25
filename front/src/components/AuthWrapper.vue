@@ -50,7 +50,7 @@ export default {
       this.userData.level
     ) {
       axios
-        .post("http://localhost:3000/api/auth/auth", this.userData, {
+        .post("http://localhost:3000/api/user/auth", this.userData, {
           headers: { Authorization: "Bearer " + this.userData.token },
         })
         .then((response) => {
