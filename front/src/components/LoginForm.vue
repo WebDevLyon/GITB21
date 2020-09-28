@@ -54,30 +54,32 @@
               />
             </div>
             <div class="group">
-              <label for="username" class="label">Username</label>
-              <input id="username" type="text" class="input" />
+              <label for="username" class="label">Username<sup class="requiredSign">*</sup></label>
+              <input id="username" type="text" class="input" required/>
             </div>
             <div class="group">
-              <label for="pass" class="label">Password</label>
+              <label for="pass" class="label">Password<sup class="requiredSign">*</sup></label>
               <input
                 id="pass"
                 type="password"
                 class="input"
                 data-type="password"
+                required
               />
             </div>
             <div class="group">
-              <label for="passrepeat" class="label">Repeat Password</label>
+              <label for="passrepeat" class="label">Repeat Password<sup class="requiredSign">*</sup></label>
               <input
                 id="passrepeat"
                 type="password"
                 class="input"
                 data-type="password"
+                required
               />
             </div>
             <div class="group">
-              <label for="mail" class="label">Email Address</label>
-              <input id="mail" type="text" class="input" />
+              <label for="mail" class="label">Email Address<sup class="requiredSign">*</sup></label>
+              <input id="mail" type="text" class="input" required/>
             </div>
             <div class="group">
               <input type="submit" class="button" value="Sign Up" />
@@ -98,7 +100,7 @@ export default {
   data() {
     return {
       authCkeck: false,
-      data: {
+      dataAuth: {
         email: null,
         password: null,
       },
@@ -118,22 +120,25 @@ export default {
   methods: {
     login() {
       //Récupération des value du form
-      this.data.account = document.getElementById("user").value;
-      this.data.password = document.getElementById("password").value;
+      this.dataAuth.account = document.getElementById("user").value;
+      this.dataAuth.password = document.getElementById("password").value;
       let check = document.getElementById("check").checked;
       axios
-        .post("http://localhost:3000/api/user/login", this.data)
+        .post("http://localhost:3000/api/user/login", this.dataAuth)
         .then((response) => {
-          let userData = {
+          console.log(response.data)
+          let returnUserData = {
+            name: response.data.name,
+            email: response.data.email,
             userId: response.data.userId,
             token: response.data.token,
-            associate: response.data.association,
+            association: response.data.association,
             level: response.data.level,
           };
           if (check) {
-            localStorage.setItem("userData", JSON.stringify(userData));
+            localStorage.setItem("userData", JSON.stringify(returnUserData));
           } else {
-            sessionStorage.setItem("userData", JSON.stringify(userData));
+            sessionStorage.setItem("userData", JSON.stringify(returnUserData));
           }
           window.location.reload();
         })

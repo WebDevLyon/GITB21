@@ -1,8 +1,10 @@
 const User = require("../models/User");
+const Association = require("../models/Association");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-//const library = require("../library/library");
 
+
+/*Function de base
 exports.auth = (req, res, next) => {
   console.log(req.body.userId);
   try {
@@ -21,6 +23,27 @@ exports.auth = (req, res, next) => {
     });
   }
 };
+*/
+exports.auth = (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+    const userId = decodedToken.userId;
+    console.log("decodetoken", userId);
+    if (!userId) {
+      throw "Invalid user Token";
+    } else {
+      User.findOne({ _id: userId }).populate('association')
+        .then(user => { res.status(200).json(user) })
+        .catch((error) => res.status(500).json({ error }));
+    }
+  } catch {
+    res.status(401).json({
+      error: new Error("Invalid request!"),
+    });
+  }
+};
+
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -63,6 +86,8 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
           res.status(200).json({
+            name:user.name,
+            email:user.email,
             userId: user._id,
             level: user.level,
             association: user.association,
@@ -80,3 +105,11 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+exports.testfindOne = (req, res, next) => {
+  console.log(req.query)
+  User.findOne(req.query).populate('association')
+    .then(user => { res.status(200).json(user) })
+    .catch((error) => res.status(500).json({ error }));
+
+}

@@ -7,9 +7,10 @@ export default new Vuex.Store({
     state: {
         IdViewType: null,
         userData: {
+            name:null,
             userId: null,
-            token: null,
-            associate: null,
+            email:null,
+            association: null,
             level: null
         }
     },
