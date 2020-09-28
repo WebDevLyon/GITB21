@@ -9,7 +9,9 @@ const associationrSchema = mongoose.Schema({
     responsable:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
-    }]
+    }],
+    joueurs:[{type:mongoose.Schema.Types.ObjectId,
+    ref:'Player'}]
 });
 
 associationrSchema.plugin(uniqueValidator);

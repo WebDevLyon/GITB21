@@ -6,7 +6,10 @@ const playerSchema = mongoose.Schema({
     prenom: { type: String, required: true },
     mail: { type: String },
     tel: { type: String },
-    association: { type: String, required: true },
+    association: {
+        type: mongoose.Schema.Types.String,
+        ref: 'Association'
+    },
     optionTournois: { type: Boolean, default: false },
     renouvellementOption: { type: Boolean, default: false },
 });

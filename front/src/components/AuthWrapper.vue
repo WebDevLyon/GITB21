@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["IdViewType", "userData"]),
+    ...mapState(["IdViewType", "userData", "playerClub"]),
   },
 
   methods: {},
@@ -45,6 +45,7 @@ export default {
     } else {
       console.log("pas d'info");
     }
+    //Si des données sont présentes dans un Storage, on verrifie le token et actualisons les données
     if (
       this.userData.association ||
       this.userData.userId ||
@@ -65,17 +66,21 @@ export default {
           this.userData.email = response.data.email;
           this.userData.level = response.data.level;
           this.userData.association = response.data.association;
+
+          //Mise à jour des players du club
+          axios
+            .get("http://localhost:3000/api/player/list", {
+              params: { association: this.userData.association._id },
+            })
+            .then((resp) => (this.$store.state.playerClub = resp.data.players))
+            .catch((err) => console.log(err));
           return (this.authCkeck = true);
         })
         .catch((err) => {
           console.log(err);
           return (this.authCkeck = false);
         });
-
-      //! s'il n'existe pas return false
-      // S'il existe appel api pour vérification
-      //! si erreur retourner false
-      //* sinon lancer app.vue avec true
+      //Sinon ne pas authentifier
     } else {
       this.authCkeck = false;
     }

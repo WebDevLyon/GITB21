@@ -82,10 +82,15 @@
 
 <script>
 import NotAssociation from "@/components/NotAssociation";
+
+
 export default {
   name: "Home",
   components: {
     NotAssociation,
+  },
+  mounted() {
+   
   },
 };
 </script>

@@ -7,12 +7,13 @@ export default new Vuex.Store({
     state: {
         IdViewType: null,
         userData: {
-            name:null,
+            name: null,
             userId: null,
-            email:null,
+            email: null,
             association: null,
             level: null
-        }
+        },
+        playerClub: [null]
     },
     mutations: {},
     actions: {},

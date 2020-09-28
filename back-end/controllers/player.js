@@ -1,4 +1,5 @@
 const Player = require('../models/Player');
+const User = require('../models/User');
 
 
 exports.add = (req, res, next) => {
@@ -13,7 +14,7 @@ exports.add = (req, res, next) => {
             prenom: req.body.prenom,
             mail: req.body.nom.email,
             tel: req.body.tel,
-            association: 'ASMC',
+            association: req.body.association,
             optionTournois: req.body.tournoiOption,
         })
         //?vérification du joueur créé ?
@@ -25,3 +26,10 @@ exports.add = (req, res, next) => {
         .catch(err => res.status(400).json({ err }))
         //    TODO: Renvoyer erreur ou confirmation de l'enregistrement
 };
+
+exports.list=(req, res, next) =>{
+console.log(req.query)
+    Player.find(req.query).populate('association')
+    .then(players=> {res.status(200).json({players})})
+    .catch(err=>res.status(400).json({err}))
+}
