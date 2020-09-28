@@ -7,7 +7,7 @@ const playerSchema = mongoose.Schema({
     mail: { type: String },
     tel: { type: String },
     association: {
-        type: mongoose.Schema.Types.String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Association'
     },
     optionTournois: { type: Boolean, default: false },

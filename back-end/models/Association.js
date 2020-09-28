@@ -2,16 +2,18 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const associationrSchema = mongoose.Schema({
-    name: { type: String, required: true, unique:true},
+    name: { type: String, required: true, unique: true },
     adresse: { type: String, required: true },
     cp: { type: String, required: true },
     ville: { type: String, required: true },
-    responsable:[{
+    responsable: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref: 'User'
     }],
-    joueurs:[{type:mongoose.Schema.Types.ObjectId,
-    ref:'Player'}]
+    joueurs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player'
+    }]
 });
 
 associationrSchema.plugin(uniqueValidator);

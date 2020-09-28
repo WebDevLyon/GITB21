@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Association = require("../models/Association");
+const Player = require("../models/Player");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -86,8 +87,8 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
           res.status(200).json({
-            name:user.name,
-            email:user.email,
+            name: user.name,
+            email: user.email,
             userId: user._id,
             level: user.level,
             association: user.association,
@@ -108,7 +109,7 @@ exports.login = (req, res, next) => {
 
 exports.testfindOne = (req, res, next) => {
   console.log(req.query)
-  User.findOne(req.query).populate('association')
+  User.findOne(req.query).populate({ path: 'association', populate: { path: 'joueurs' } })
     .then(user => { res.status(200).json(user) })
     .catch((error) => res.status(500).json({ error }));
 
