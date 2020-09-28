@@ -10,12 +10,17 @@
         <div class="login-form">
           <div class="sign-in-htm">
             <div class="group">
-              <label for="user" class="label">Username</label>
+              <label for="user" class="label">Username ou email</label>
               <input id="user" type="text" class="input" />
             </div>
             <div class="group">
               <label for="password" class="label">Password</label>
-              <input id="password" type="password" class="input" data-type="password" />
+              <input
+                id="password"
+                type="password"
+                class="input"
+                data-type="password"
+              />
             </div>
             <div class="group">
               <input id="check" type="checkbox" class="check" checked />
@@ -24,33 +29,57 @@
               </label>
             </div>
             <div class="group">
-              <input type="submit" class="button" value="Sign In" @click="login" />
+              <input
+                type="submit"
+                class="button"
+                value="Sign In"
+                @click="login"
+              />
+              <p class="responseServer">{{ responseServer }}</p>
             </div>
             <div class="hr"></div>
             <div class="foot-lnk">
               <a href="#forgot">Mot de pass oublié ?</a>
             </div>
           </div>
+          <!-- Sign Up -->
           <div class="sign-up-htm">
             <div class="group">
               <label for="associate" class="label">Association</label>
-              <input id="associate" type="text" class="input" />
+              <input
+                id="associate"
+                type="text"
+                class="input"
+                placeholder="laissez vide pour création d'association"
+              />
             </div>
             <div class="group">
-              <label for="username" class="label">Username</label>
-              <input id="username" type="text" class="input" />
+              <label for="username" class="label">Username<sup class="requiredSign">*</sup></label>
+              <input id="username" type="text" class="input" required/>
             </div>
             <div class="group">
-              <label for="pass" class="label">Password</label>
-              <input id="pass" type="password" class="input" data-type="password" />
+              <label for="pass" class="label">Password<sup class="requiredSign">*</sup></label>
+              <input
+                id="pass"
+                type="password"
+                class="input"
+                data-type="password"
+                required
+              />
             </div>
             <div class="group">
-              <label for="passrepeat" class="label">Repeat Password</label>
-              <input id="passrepeat" type="password" class="input" data-type="password" />
+              <label for="passrepeat" class="label">Repeat Password<sup class="requiredSign">*</sup></label>
+              <input
+                id="passrepeat"
+                type="password"
+                class="input"
+                data-type="password"
+                required
+              />
             </div>
             <div class="group">
-              <label for="mail" class="label">Email Address</label>
-              <input id="mail" type="text" class="input" />
+              <label for="mail" class="label">Email Address<sup class="requiredSign">*</sup></label>
+              <input id="mail" type="text" class="input" required/>
             </div>
             <div class="group">
               <input type="submit" class="button" value="Sign Up" />
@@ -71,10 +100,11 @@ export default {
   data() {
     return {
       authCkeck: false,
-      data: {
-        email: null, //"nijlak@nij.fr",
-        password: null, //"azerty",
+      dataAuth: {
+        email: null,
+        password: null,
       },
+      responseServer: null,
     };
   },
   computed: {
@@ -90,27 +120,30 @@ export default {
   methods: {
     login() {
       //Récupération des value du form
-      this.data.email = document.getElementById("user").value;
-      this.data.password = document.getElementById("password").value;
+      this.dataAuth.account = document.getElementById("user").value;
+      this.dataAuth.password = document.getElementById("password").value;
       let check = document.getElementById("check").checked;
       axios
-        .post("http://localhost:3000/api/auth/login", this.data)
+        .post("http://localhost:3000/api/user/login", this.dataAuth)
         .then((response) => {
-          let userData = {
+          console.log(response.data)
+          let returnUserData = {
+            name: response.data.name,
+            email: response.data.email,
             userId: response.data.userId,
             token: response.data.token,
-            associate: response.data.association,
+            association: response.data.association,
             level: response.data.level,
           };
           if (check) {
-            localStorage.setItem("userData", JSON.stringify(userData));
+            localStorage.setItem("userData", JSON.stringify(returnUserData));
           } else {
-            sessionStorage.setItem("userData", JSON.stringify(userData));
+            sessionStorage.setItem("userData", JSON.stringify(returnUserData));
           }
           window.location.reload();
         })
         .catch((err) => {
-          console.log("error", err);
+          this.responseServer = err;
         });
     },
   },
@@ -282,5 +315,13 @@ a {
 }
 .foot-lnk {
   text-align: center;
+}
+.responseServer {
+  text-align: center;
+  color: red;
+}
+#associate::placeholder {
+  color: grey;
+  opacity: 1;
 }
 </style>
