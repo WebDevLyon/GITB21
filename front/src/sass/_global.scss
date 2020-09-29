@@ -96,7 +96,11 @@ table {
         }
     }
 }
+//Details
+.requiredSign{
+    color:red;
 
+}
 @media screen and (max-width: 576px) {
     .sm-hidden {
         display: none;

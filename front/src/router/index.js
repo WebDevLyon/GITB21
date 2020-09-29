@@ -17,6 +17,13 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/Player.vue')
     },
+
+    {
+        path: '/player2',
+        name: 'Player2',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/Player2.vue')
+    },
     {
         path: '/tournois',
         name: 'Tournois',
@@ -34,6 +41,12 @@ const routes = [{
         name: 'IdView',
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/IdView.vue')
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/Test.vue')
     }
 ]
 

@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["IdViewType", "userData"]),
+    ...mapState(["IdViewType", "userData", "playerClub"]),
   },
 
   methods: {},
@@ -26,46 +26,52 @@ export default {
     //initialisation des informations de l'user
     if (window.localStorage.getItem("userData")) {
       this.$store.state.userData = {
+        name: JSON.parse(window.localStorage.getItem("userData")).name,
+        email: JSON.parse(window.localStorage.getItem("userData")).email,
         userId: JSON.parse(window.localStorage.getItem("userData")).userId,
-        token: JSON.parse(window.localStorage.getItem("userData")).token,
-        associate: JSON.parse(window.localStorage.getItem("userData"))
-          .associate,
+        association: JSON.parse(window.localStorage.getItem("userData"))
+          .association,
         level: JSON.parse(window.localStorage.getItem("userData")).level,
       };
     } else if (window.sessionStorage.getItem("userData")) {
       this.$store.state.userData = {
+        name: JSON.parse(window.sessionStorage.getItem("userData")).name,
+        email: JSON.parse(window.sessionStorage.getItem("userData")).email,
         userId: JSON.parse(window.sessionStorage.getItem("userData")).userId,
-        token: JSON.parse(window.sessionStorage.getItem("userData")).token,
-        associate: JSON.parse(window.sessionStorage.getItem("userData"))
-          .associate,
+        association: JSON.parse(window.sessionStorage.getItem("userData"))
+          .association,
         level: JSON.parse(window.sessionStorage.getItem("userData")).level,
       };
     } else {
       console.log("pas d'info");
     }
+    //Si des données sont présentes dans un Storage, on verrifie le token et actualisons les données
     if (
-      this.userData.associate ||
-      this.userData.token ||
+      this.userData.association ||
       this.userData.userId ||
       this.userData.level
     ) {
       axios
-        .post("http://localhost:3000/api/auth/auth", this.userData, {
-          headers: { Authorization: "Bearer " + this.userData.token },
+        .post("http://localhost:3000/api/user/auth", this.userData, {
+          headers: {
+            Authorization:
+              "Bearer " +
+              JSON.parse(window.localStorage.getItem("userData")).token,
+          },
         })
         .then((response) => {
-          console.log(response.data);
+          this.userData.userId = response.data._id;
+          this.userData.name = response.data.name;
+          this.userData.email = response.data.email;
+          this.userData.level = response.data.level;
+          this.userData.association = response.data.association;
           return (this.authCkeck = true);
         })
         .catch((err) => {
           console.log(err);
           return (this.authCkeck = false);
         });
-
-      //! s'il n'existe pas return false
-      // S'il existe appel api pour vérification
-      //! si erreur retourner false
-      //* sinon lancer app.vue avec true
+      //Sinon ne pas authentifier
     } else {
       this.authCkeck = false;
     }
