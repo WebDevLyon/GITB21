@@ -34,7 +34,7 @@ exports.auth = (req, res, next) => {
     if (!userId) {
       throw "Invalid user Token";
     } else {
-      User.findOne({ _id: userId }).populate('association')
+      User.findOne({ _id: userId }).populate({ path: 'association', populate: { path: 'joueurs' } })
         .then(user => { res.status(200).json(user) })
         .catch((error) => res.status(500).json({ error }));
     }
@@ -74,7 +74,8 @@ exports.login = (req, res, next) => {
   else {
     TypeShearch = { name: req.body.account };
   }
-  User.findOne(TypeShearch)
+  //On cherche l'user et charge toutes les infos sur l'association et les joueurs de l'association
+  User.findOne(TypeShearch).populate({ path: 'association', populate: { path: 'joueurs' } })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
@@ -91,7 +92,7 @@ exports.login = (req, res, next) => {
             email: user.email,
             userId: user._id,
             level: user.level,
-            association: user.association,
+            association: user.association.name,
             token: jwt.sign(
               {
                 userId: user._id,
@@ -106,11 +107,3 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
-exports.testfindOne = (req, res, next) => {
-  console.log(req.query)
-  User.findOne(req.query).populate({ path: 'association', populate: { path: 'joueurs' } })
-    .then(user => { res.status(200).json(user) })
-    .catch((error) => res.status(500).json({ error }));
-
-}

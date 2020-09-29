@@ -13,7 +13,6 @@ export default new Vuex.Store({
             association: null,
             level: null
         },
-        playerClub: [null]
     },
     mutations: {},
     actions: {},

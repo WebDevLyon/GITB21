@@ -60,20 +60,11 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data);
           this.userData.userId = response.data._id;
           this.userData.name = response.data.name;
           this.userData.email = response.data.email;
           this.userData.level = response.data.level;
           this.userData.association = response.data.association;
-
-          //Mise à jour des players du club
-          axios
-            .get("http://localhost:3000/api/player/list", {
-              params: { association: this.userData.association._id },
-            })
-            .then((resp) => (this.$store.state.playerClub = resp.data.players))
-            .catch((err) => console.log(err));
           return (this.authCkeck = true);
         })
         .catch((err) => {

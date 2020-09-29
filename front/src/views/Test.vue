@@ -5,8 +5,6 @@
     <h3>Information stockées sur l'utilisateur</h3>
     <p>{{this.userData}}</p>
 <hr>
-<h3>Joueurs de l'association</h3>
-<p v-for='player in this.playerClub' :key='player'>{{player.NOM}}</p>
     </div>
     
   </div>
