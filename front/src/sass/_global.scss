@@ -1,7 +1,7 @@
 //Font
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 //Color Panel
@@ -14,95 +14,117 @@ $Color-name: #2a58ae;
 $BG-headerArray: #c4d2e4;
 $BG-headerBody: #fdfdfd;
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .router-link {
-    color: $BG-content;
-    text-decoration: none;
+  color: $BG-content;
+  text-decoration: none;
 }
 
-//Structure de la page
-.page-content {
-    //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
-    //la droite comporte une barre de recherche en haut avec un bouton disconnect
-    // Le reste et le corps de la session regardée
+/**********************************
+--- Structure des pages desktop ---
+**********************************/
+
+//  Structure des pages avec une liste sous forme de tableau
+//      Conteneur de la liste
+.list-id {
+  &__top {
     display: flex;
-    width: 100%;
-    max-height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    &__btnAdd {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    &__body {
+      padding: 1rem 2rem;
+    }
+  }
+}
+.array-list {
+  width: 100%;
+}
+
+.page-content {
+  //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
+  //la droite comporte une barre de recherche en haut avec un bouton disconnect
+  // Le reste et le corps de la session regardée
+  display: flex;
+  width: 100%;
+  max-height: 100vh;
 }
 
 .nav {
-    //Bar à gauche largeur 1/5 de l'écran
-    flex: 1;
-    &__id-user {
-        margin: 1rem auto;
-        width: 80%;
-        &--logo {
-            border-radius: 10%;
-            width: 100%;
-        }
+  //Bar à gauche largeur 1/5 de l'écran
+  flex: 1;
+  &__id-user {
+    margin: 1rem auto;
+    width: 80%;
+    &--logo {
+      border-radius: 10%;
+      width: 100%;
     }
-    &__link {
-        text-align: center;
-        margin: 2rem;
-        &__title {
-            &--icon {
-                font-size: 2rem;
-            }
-            &--text {
-                margin: 0;
-            }
-        }
+  }
+  &__link {
+    text-align: center;
+    margin: 2rem;
+    &__title {
+      &--icon {
+        font-size: 2rem;
+      }
+      &--text {
+        margin: 0;
+      }
     }
+  }
 }
 
 .view {
-    flex: 4;
+  flex: 4;
 }
 
 table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 90%;
+  & th,
+  td {
+    text-align: center;
+  }
+  & thead {
+    background-color: $BG-headerArray;
+    & tr th {
+      padding: 0.5rem 0;
+    }
+  }
+  & tbody {
+    font-size: 0.75rem;
+    background-color: $BG-headerBody;
+    & tr td {
+      padding: 1rem 0 2rem 0;
+      border-bottom: 0.5px solid $BG-headerArray;
+    }
+  }
+  & .website-status {
+    display: flex;
+    align-items: center;
+    width: 60%;
     margin: auto;
-    border-collapse: collapse;
-    width: 90%;
-    & th,
-    td {
-        text-align: center;
+    padding: 0.5rem;
+    border: 0.5px solid $BG-headerArray;
+    border-radius: 40%;
+    & .dot-signal {
+      font-size: 2rem;
     }
-    & thead {
-        background-color: $BG-headerArray;
-        & tr th {
-            padding: 0.5rem 0;
-        }
-    }
-    & tbody {
-        font-size: 0.75rem;
-        background-color: $BG-headerBody;
-        & tr td {
-            padding: 1rem 0 2rem 0;
-            border-bottom: 0.5px solid $BG-headerArray;
-        }
-    }
-    & .website-status {
-        display: flex;
-        align-items: center;
-        width: 60%;
-        margin: auto;
-        padding: 0.5rem;
-        border: 0.5px solid $BG-headerArray;
-        border-radius: 40%;
-        & .dot-signal {
-            font-size: 2rem;
-        }
-    }
+  }
 }
 //Details
-.requiredSign{
-    color:red;
-
+.requiredSign {
+  color: red;
 }
 @media screen and (max-width: 576px) {
-    .sm-hidden {
-        display: none;
-    }
+  .sm-hidden {
+    display: none;
+  }
 }
