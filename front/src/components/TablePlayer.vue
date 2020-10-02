@@ -60,6 +60,7 @@
               value="None"
               :id="'interrupteur' + index"
               name="check"
+              @click="openModal"
             />
 
             <label :for="'interrupteur' + index"></label>
@@ -99,18 +100,24 @@
 </template>
 
 <script>
-import Interrupteur from "@/components/Interrupteur";
+//import Interrupteur from "@/components/Interrupteur";
+
 export default {
-  name: "Card2",
+  name: "TablePlayer",
+
   components: {
-    Interrupteur,
+    //  Interrupteur,
   },
   props: {
     joueurs: {
       type: Array,
     },
   },
-  methods: {},
+  methods: {
+    openModal() {
+      this.$emit("openModal");
+    },
+  },
 
   mounted() {
     this.joueurs.forEach((joueur) => {

@@ -46,6 +46,16 @@ body {
   width: 100%;
 }
 
+/*********************************
+---- Structure des components ----
+*********************************/
+
+// Modal Box
+.modalBox {
+  z-index: 1000;
+}
+
+//A refactorer ci-dessous
 .page-content {
   //structure en flex avec le nav à gauche et le reste à droite sur 100% de la largeur
   //la droite comporte une barre de recherche en haut avec un bouton disconnect

@@ -1,24 +1,44 @@
 <template>
   <div class="modalBox">
     <div class="modalBox__content">
-      <header class="modalBox__content__header" id="idTest">
+      <header class="modalBox__content__header">
         <slot name="header">
           <h4>Titre de la boite Modale</h4>
         </slot>
-        <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
+        <button
+          type="button"
+          class="btn-close"
+          @click="close"
+          aria-label="Close modal"
+        >
+          x
+        </button>
       </header>
       <section class="modalBox__content__body">
         <slot name="body">
-          <p>Corps de la boite modale non renseigné... Veuillez contacter le développeur</p>
+          <p>
+            Corps de la boite modale non renseigné... Veuillez contacter le
+            développeur
+          </p>
         </slot>
       </section>
       <footer class="modalBox__content__footer">
-        <slot name='btn-cancel'>
-        <button type="button" class="btn-close" @click="close" aria-label="Close modal">Annuler</button></slot>
-        <slot name='btn-valid'>
-
-        <button type="button" class="btn-valid" @click="valid">Valider</button></slot>
-        <slot name='btn-suplementaire'></slot>
+        <slot name="btn-cancel">
+          <button
+            type="button"
+            class="btn-close"
+            @click="close"
+            aria-label="Close modal"
+          >
+            Annuler
+          </button></slot
+        >
+        <slot name="btn-valid">
+          <button type="button" class="btn-valid" @click="valid">
+            Valider
+          </button></slot
+        >
+        <slot name="btn-suplementaire"></slot>
       </footer>
     </div>
   </div>
@@ -31,11 +51,9 @@ export default {
     close() {
       this.$emit("close");
     },
-    valid(){
+    valid() {
       this.$emit("valid");
-
-    }
-     
+    },
   },
 };
 </script>
@@ -82,8 +100,8 @@ export default {
       display: flex;
       justify-content: space-around;
       margin: 1rem 0;
-      & *{
-        flex:1;
+      & * {
+        flex: 1;
       }
     }
   }

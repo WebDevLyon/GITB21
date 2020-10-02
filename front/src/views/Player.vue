@@ -5,7 +5,7 @@
       <div
         class="list-id__top__btnAdd"
         data-toggle="modal"
-        data-target="#exampleModal"
+        data-target="#ModalBox"
         @click="showModal"
       >
         <svg
@@ -24,7 +24,10 @@
       </div>
     </div>
     <div class="list-id__body">
-      <TablePlayer :joueurs="$store.state.userData.association.joueurs" />
+      <TablePlayer
+        :joueurs="$store.state.userData.association.joueurs"
+        @openModal="showModal"
+      />
     </div>
     <transition name="fade">
       <!-- <ModalBox v-show="isModalVisible" @close="closeModal" /> -->
@@ -32,8 +35,9 @@
         v-show="isModalVisible"
         @close="closeModal"
         @valid="sendNewPlayer"
+        id="ModalBox"
       >
-        <div slot="header">
+        <!-- <div slot="header">
           <h4>Ajout d'un joueur à la base de données</h4>
         </div>
         <div slot="body">
@@ -72,7 +76,7 @@
               <p class="responseAPI" id="responseAPI"></p>
             </div>
           </form>
-        </div>
+        </div>-->
       </ModalBox>
     </transition>
   </section>
@@ -82,7 +86,6 @@
 import TablePlayer from "@/components/TablePlayer";
 import ModalBox from "@/components/ModalBox";
 import axios from "axios";
-//import ModalBox1 from "@/components/ModalBox1";
 
 export default {
   name: "Player2",
