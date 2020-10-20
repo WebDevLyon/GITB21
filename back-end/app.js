@@ -4,6 +4,7 @@ const { param } = require("./routes/user");
 
 const userRoutes = require("./routes/user");
 const playerRoutes = require("./routes/player");
+const tournoisRoutes = require("./routes/tournois");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -35,5 +36,6 @@ app.use((req, res, next) => {
 
 app.use("/api/player", playerRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/tournois", tournoisRoutes);
 
 module.exports = app;
