@@ -18,9 +18,6 @@ const associationrSchema = mongoose.Schema({
       ref: "Player",
     },
   ],
-  config: {
-    badisteTounois: { type: String, default: null },
-  },
 });
 
 associationrSchema.plugin(uniqueValidator);
