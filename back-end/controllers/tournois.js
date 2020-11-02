@@ -1,11 +1,13 @@
 //Model des tournois
 const Tournoi = require("../models/Tournois");
+const Associate = require("../models/Association");
 
 //require puppeteer
 const puppeteer = require("puppeteer");
 
 //Obtenir la liste des tournois avec un joueur du club inscrit depuis badiste et les sauvegarder si pas existant sur la database
 exports.getAll = (req, res, next) => {
+  let url = req.body.badiste;
   /*Browser*/
   async function startBrowser() {
     let browser;
@@ -25,12 +27,11 @@ exports.getAll = (req, res, next) => {
 
   /*page scraper*/
   const scraperObject = {
-    url: req.body.badiste,
     tournoiArray: [],
     async scraper(browser) {
       let page = await browser.newPage();
-      console.log(`Navigating to ${this.url}...`);
-      await page.goto(this.url);
+      console.log(`Navigating to ${url}...`);
+      await page.goto(url);
       // Wait for the required DOM to be rendered
       await page.waitForSelector(".toptable");
       // Get the link to all the required books
@@ -81,12 +82,27 @@ exports.getAll = (req, res, next) => {
       //save des tournois sur la DB s'ils n'existe pas déjà
       this.tournoiArray.forEach((tournoi) => {
         //on vérifie s'il n'est pas déjà dans la DB
-        Tournoi.findOne({ link: tournoi.linkTournoi })
-          .then((tournoifind) => {
-            if (tournoifind) {
-              console.log("Le tournois est déjà dans la DB");
+        Associate.findOne({ name: "Association Sportive Marcy Charbonnière" })
+          .then((associateFind) => {
+            if (!associateFind) {
+              console.log("pb");
             } else {
-              const newTournoi = new Tournoi({
+              for (var i = 0; i < associateFind.tournoisSelected.length; i++) {
+                if (
+                  associateFind.tournoisSelected[i].linkTournoi ===
+                  tournoi.linkTournoi
+                ) {
+                  console.log("existe deja");
+                }
+              }
+              associateFind.tournoisSelected.push(tournoi);
+              associateFind
+                .save()
+                .then(() => console.log("tournois save")) //console.log("tournois save", associateFind))
+                .catch((error) => res.status(400).json({ error }));
+
+              //Ci dessous si on travail sur la table Tournoi
+              /* const newTournoi = new Tournoi({
                 nom: tournoi.nomTournoi,
                 link: tournoi.linkTournoi,
                 serie: tournoi.serie,
@@ -96,7 +112,7 @@ exports.getAll = (req, res, next) => {
               newTournoi
                 .save()
                 .then(() => console.log("tournois save"))
-                .catch((error) => res.status(400).json({ error }));
+                .catch((error) => res.status(400).json({ error }));*/
             }
           })
           .catch((err) => res.status(500).json({ err }));

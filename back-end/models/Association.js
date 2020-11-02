@@ -18,6 +18,7 @@ const associationrSchema = mongoose.Schema({
       ref: "Player",
     },
   ],
+  tournoisSelected: { type: Array, default: null },
 });
 
 associationrSchema.plugin(uniqueValidator);
