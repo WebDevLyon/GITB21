@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="page-content">
-    <Nav :associate="associate" />
+    <Nav />
     <div class="view">
       <SearchBar />
       <router-view class="view__session" />
@@ -11,20 +11,12 @@
 <script>
 import Nav from "@/components/Nav";
 import SearchBar from "@/components/SearchBar";
-import { mapState } from "vuex";
 
 export default {
   name: "App",
-  props: {
-    associate: {
-      type: String,
-      default: null,
-    },
-  },
   components: {
     Nav,
     SearchBar,
-    ...mapState(["userData", "day"]),
   },
 };
 </script>

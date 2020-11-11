@@ -4,7 +4,11 @@
       <NotAssociation />
     </div>
     <div v-else>
-      <div id="block-content" class="home">
+      <div>
+        <h2>Votre store contient</h2>
+        <div>{{ this.userData }}</div>
+      </div>
+      <!-- <div id="block-content" class="home">
         <div id="dashboard" class="row justify-content-around">
           <div id="panel-tounois" class="card col-12 col-sm-5 my-2 pb-1">
             <h2>Suivi tournois</h2>
@@ -75,19 +79,22 @@
           </div>
         </div>
       </div>
-      <footer></footer>
+      <footer></footer>-->
     </div>
   </div>
 </template>
 
 <script>
 import NotAssociation from "@/components/NotAssociation";
+import { mapState } from "vuex";
 
 export default {
   name: "Home",
   components: {
     NotAssociation,
   },
-  mounted() {},
+  computed: {
+    ...mapState(["userData"]),
+  },
 };
 </script>

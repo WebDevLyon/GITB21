@@ -54,7 +54,7 @@ export default {
           this.userData.userId = response.data._id;
           this.userData.name = response.data.name;
           this.userData.email = response.data.email;
-          this.userData.level = response.data.level;
+          this.userData.role = response.data.role;
           this.userData.association = response.data.association;
           return (this.authCkeck = true);
         })
