@@ -6,7 +6,7 @@
           class="nav__id-user--logo"
           src="#"
           alt="Logo de l'association"
-          v-if="userData.association.logoURL"
+          v-if="userData.association && userData.association.logoURL"
         />
         <img
           class="nav__id-user--logo"
@@ -15,7 +15,13 @@
           v-else
         />
       </div>
-      <p class="nav__id-user--name">{{ userData.association.name }}</p>
+      <p
+        class="nav__id-user--name"
+        v-if="userData.association && userData.association.name"
+      >
+        {{ userData.association.name }}
+      </p>
+      <p class="nav__id-user--name" v-else>Aucune association enregistrée</p>
     </div>
     <NavLink navTitle="Dashboard" navLink="/" svgClass="bi bi-clipboard-data">
       <template v-slot:svgPath>

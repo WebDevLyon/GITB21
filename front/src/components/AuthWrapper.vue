@@ -43,7 +43,7 @@ export default {
       this.userData.level
     ) {
       axios
-        .post("http://localhost:3000/api/user/auth", this.userData, {
+        .post("http://localhost:3000/api/user/autoLog", this.userData, {
           headers: {
             Authorization:
               "Bearer " +
@@ -59,7 +59,7 @@ export default {
           return (this.authCkeck = true);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("err", err);
           return (this.authCkeck = false);
         });
       //Sinon ne pas authentifier
