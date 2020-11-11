@@ -8,7 +8,7 @@
           alt="Logo de l'association"
         />
       </div>
-      <p class="nav__id-user--name">{{userData.association.name}}</p>
+      <p class="nav__id-user--name">{{ userData.association.name }}</p>
     </div>
     <div class="nav__link">
       <router-link class="router-link" to="/">
@@ -62,30 +62,6 @@
       </router-link>
     </div>
     <div class="nav__link">
-      <router-link class="router-link" to="/player2">
-        <div class="nav__link__title">
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            class="bi bi-person-circle nav__link__title--icon"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"
-            />
-            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-            <path
-              fill-rule="evenodd"
-              d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"
-            />
-          </svg>
-          <p class="nav__link__title--text">Joueurs bis</p>
-        </div>
-      </router-link>
-    </div>
-    <div class="nav__link">
       <router-link class="router-link" to="/tournois">
         <div class="nav__link__title">
           <svg
@@ -100,7 +76,9 @@
               fill-rule="evenodd"
               d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z"
             />
-            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+            <path
+              d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"
+            />
           </svg>
 
           <p class="nav__link__title--text">Tournois</p>
@@ -184,7 +162,7 @@ export default {
   height: 100vh;
   color: white;
   &__id-user {
-    &--name{
+    &--name {
       text-align: center;
       margin-bottom: 5rem;
     }

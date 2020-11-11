@@ -1,11 +1,11 @@
 <template>
-  <section class="section">
-    <div class="section__top">
-      <h2 class="section__top__head">Joueurs</h2>
+  <section class="list-id">
+    <div class="list-id__top">
+      <h2 class="list-id__top__head">Joueurs</h2>
       <div
-        class="section__top__btnAdd"
+        class="list-id__top__btnAdd"
         data-toggle="modal"
-        data-target="#exampleModal"
+        data-target="#ModalBox"
         @click="showModal"
       >
         <svg
@@ -23,18 +23,21 @@
         </svg>
       </div>
     </div>
-    <div class="players">
-      <Card
-        class="players__card"
-        v-for="(joueur,index) of allJoueurs"
-        :key="index"
-        :joueur="joueur"
+    <div class="list-id__body">
+      <TablePlayer
+        :joueurs="$store.state.userData.association.joueurs"
+        @openModal="showModal"
       />
     </div>
     <transition name="fade">
       <!-- <ModalBox v-show="isModalVisible" @close="closeModal" /> -->
-      <ModalBox v-show="isModalVisible" @close="closeModal" @valid="sendNewPlayer">
-        <div slot="header">
+      <ModalBox
+        v-show="isModalVisible"
+        @close="closeModal"
+        @valid="sendNewPlayer"
+        id="ModalBox"
+      >
+        <!-- <div slot="header">
           <h4>Ajout d'un joueur à la base de données</h4>
         </div>
         <div slot="body">
@@ -61,46 +64,41 @@
                 <em>(cocher si oui)</em>
               </label>
               <div>
-                <input type="checkbox" name="tournoiOption" id="tournoiOption" required />
+                <input
+                  type="checkbox"
+                  name="tournoiOption"
+                  id="tournoiOption"
+                  required
+                />
               </div>
             </div>
             <div class="form__group">
               <p class="responseAPI" id="responseAPI"></p>
             </div>
           </form>
-        </div>
+        </div>-->
       </ModalBox>
     </transition>
   </section>
 </template>
 
 <script>
-import Card from "@/components/Card";
-import AirtableManager from "@/airtableManager.js";
+import TablePlayer from "@/components/TablePlayer";
 import ModalBox from "@/components/ModalBox";
 import axios from "axios";
-//import ModalBox1 from "@/components/ModalBox1";
 
 export default {
-  name: "Player",
+  name: "Player2",
   components: {
-    Card,
-    //ModalBox,
+    TablePlayer,
     ModalBox,
   },
   data() {
     return {
-      allJoueurs: [],
       isModalVisible: false,
     };
   },
-  mounted() {
-    let imgsCard = document.getElementsByClassName("card__block__img");
-    imgsCard.forEach((img) => {
-      img.style.height = img.clientWidth + "px";
-    });
-    AirtableManager.liste("joueurs", this.allJoueurs);
-  },
+  mounted() {},
   methods: {
     //* Gestion de l'ouverture et fermeture de la boite modale
     showModal() {
@@ -118,11 +116,11 @@ export default {
       let tournoiOption = document.getElementById("tournoiOption").checked;
       //TODO: Vérification des datas à faire
       let NewPlayer = {
-        'nom': nom,
-        'prenom': prenom,
-        'email': email,
-        'tel':tel,
-        'tournoiOption':tournoiOption,
+        nom: nom,
+        prenom: prenom,
+        email: email,
+        tel: tel,
+        tournoiOption: tournoiOption,
       };
 
       //Controle de l'objet envoyé
@@ -132,9 +130,8 @@ export default {
       axios
         .post("http://localhost:3000/api/player/add", NewPlayer)
         .then((response) => {
-          console.log(response)
-          }
-        )
+          console.log(response);
+        })
         .catch((err) => {
           console.log("error", err);
         });
@@ -148,53 +145,8 @@ export default {
       }, 2000);
     },
   },
-  //Fonction de lecture d'un fichier
-  /*function charger(e){
- 
-	var fichier = e.target.files;
- 
-	var dv=document.createElement('textarea');
- 
-	var charge=new FileReader();
- 
-	charge.readAsText(fichier[0]);
- 
-	charge.onloadend = function(e){
-		dv.textContent = e.target.result;
-		document.body.appendChild(dv);
-	}}*/
 };
 </script>
 
 <style lang='scss'>
-.section {
-  &__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &__btnAdd {
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
-  }
-}
-.players {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0.5rem 1rem;
-  justify-content: space-evenly;
-  &__card {
-    width: 23%;
-    background: $BG-card;
-    margin: 0.5rem 0.2rem;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
 </style>
