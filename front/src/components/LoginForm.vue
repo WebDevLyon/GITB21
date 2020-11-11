@@ -10,7 +10,7 @@
         <div class="login-form">
           <div class="sign-in-htm">
             <div class="group">
-              <label for="user" class="label">Username ou email</label>
+              <label for="user" class="label">Email</label>
               <input id="user" type="text" class="input" />
             </div>
             <div class="group">
@@ -39,7 +39,7 @@
             </div>
             <div class="hr"></div>
             <div class="foot-lnk">
-              <a href="#forgot">Mot de pass oublié ?</a>
+              <!-- <a href="#forgot">Mot de pass oublié ?</a>-->
             </div>
           </div>
           <!-- Sign Up -->
@@ -54,11 +54,15 @@
               />
             </div>
             <div class="group">
-              <label for="username" class="label">Username<sup class="requiredSign">*</sup></label>
-              <input id="username" type="text" class="input" required/>
+              <label for="username" class="label"
+                >Username<sup class="requiredSign">*</sup></label
+              >
+              <input id="username" type="text" class="input" required />
             </div>
             <div class="group">
-              <label for="pass" class="label">Password<sup class="requiredSign">*</sup></label>
+              <label for="pass" class="label"
+                >Password<sup class="requiredSign">*</sup></label
+              >
               <input
                 id="pass"
                 type="password"
@@ -68,7 +72,9 @@
               />
             </div>
             <div class="group">
-              <label for="passrepeat" class="label">Repeat Password<sup class="requiredSign">*</sup></label>
+              <label for="passrepeat" class="label"
+                >Repeat Password<sup class="requiredSign">*</sup></label
+              >
               <input
                 id="passrepeat"
                 type="password"
@@ -78,8 +84,10 @@
               />
             </div>
             <div class="group">
-              <label for="mail" class="label">Email Address<sup class="requiredSign">*</sup></label>
-              <input id="mail" type="text" class="input" required/>
+              <label for="mail" class="label"
+                >Email Address<sup class="requiredSign">*</sup></label
+              >
+              <input id="mail" type="text" class="input" required />
             </div>
             <div class="group">
               <input type="submit" class="button" value="Sign Up" />
@@ -100,10 +108,7 @@ export default {
   data() {
     return {
       authCkeck: false,
-      dataAuth: {
-        email: null,
-        password: null,
-      },
+
       responseServer: null,
     };
   },
@@ -119,14 +124,19 @@ export default {
 
   methods: {
     login() {
+      let dataAuth = {
+        account: null,
+        password: null,
+      };
+      console.log(dataAuth);
       //Récupération des value du form
-      this.dataAuth.account = document.getElementById("user").value;
-      this.dataAuth.password = document.getElementById("password").value;
+      dataAuth.account = document.getElementById("user").value;
+      dataAuth.password = document.getElementById("password").value;
       let check = document.getElementById("check").checked;
       axios
-        .post("http://localhost:3000/api/user/login", this.dataAuth)
+        .post("http://localhost:3000/api/user/login", dataAuth)
         .then((response) => {
-          console.log(response.data)
+          console.log("response", response.data);
           let returnUserData = {
             name: response.data.name,
             email: response.data.email,
@@ -142,8 +152,9 @@ export default {
           }
           window.location.reload();
         })
-        .catch((err) => {
-          this.responseServer = err;
+        .catch(() => {
+          console.log(dataAuth);
+          this.responseServer = "Les informations sont erronées";
         });
     },
   },

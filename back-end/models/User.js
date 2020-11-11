@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
   association: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Association",
+    default: null,
   },
   role: { type: Number, default: 1 },
 });

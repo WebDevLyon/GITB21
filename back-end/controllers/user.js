@@ -4,32 +4,11 @@ const Player = require("../models/Player");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-/*Function de base
-exports.auth = (req, res, next) => {
-  console.log(req.body.userId);
+exports.autoLog = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
     const userId = decodedToken.userId;
-    console.log("decodetoken", decodedToken);
-    if (req.body.userId && req.body.userId !== userId) {
-      throw "Invalid user ID";
-    } else {
-      res.status(200).json({ msg: "Token toujours valide" });
-    }
-  } catch {
-    res.status(401).json({
-      error: new Error("Invalid request!"),
-    });
-  }
-};
-*/
-exports.auth = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-    const userId = decodedToken.userId;
-    console.log("decodetoken", userId);
     if (!userId) {
       throw "Invalid user Token";
     } else {
@@ -54,29 +33,21 @@ exports.signup = (req, res, next) => {
       const user = new User({
         name: req.body.name,
         email: req.body.email,
-        association: req.body.association,
         password: hash,
       });
       user
         .save()
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) =>
+          res.status(400).json({ error: "Cet email est déjà utilisé" })
+        );
     })
     .catch((error) => res.status(500).json({ msg: error }));
 };
 
 exports.login = (req, res, next) => {
-  //vérification si l'user entre un email ou un username
-  let TypeShearch;
-  //si le champ est entré avec un mail
-  if (req.body.account.indexOf("@") !== -1) {
-    TypeShearch = { email: req.body.account };
-  } //sinon c'est un name
-  else {
-    TypeShearch = { name: req.body.account };
-  }
   //On cherche l'user et charge toutes les infos sur l'association et les joueurs de l'association
-  User.findOne(TypeShearch)
+  User.findOne({ email: req.body.account })
     .populate({ path: "association", populate: { path: "joueurs" } })
     .then((user) => {
       if (!user) {
@@ -93,17 +64,16 @@ exports.login = (req, res, next) => {
             name: user.name,
             email: user.email,
             userId: user._id,
-            level: user.level,
-            association: user.association.name,
+            role: user.role,
+            association: user.association,
             token: jwt.sign(
               {
                 userId: user._id,
-                level: user.level,
+                level: user.role,
               },
               "RANDOM_TOKEN_SECRET",
               { expiresIn: "24h" }
             ),
-            config: user.config,
           });
         })
         .catch((error) => res.status(500).json({ error }));
