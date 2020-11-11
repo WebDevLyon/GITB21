@@ -15,6 +15,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Player.vue"),
   },
+
+  {
+    path: "/player2",
+    name: "Player2",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Player2.vue"),
+  },
   {
     path: "/tournois",
     name: "Tournois",
@@ -34,6 +41,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/IdView.vue"),
   },
   {
+    path: "/config",
+    name: "config",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Config.vue"),
+  },
+  {
     path: "/test",
     name: "test",
     component: () =>
@@ -42,6 +55,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes,
 });
 
