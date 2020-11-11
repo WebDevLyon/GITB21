@@ -1,7 +1,7 @@
 <template>
   <div>
     <App v-if="authCkeck" />
-    <LoginForm v-else />
+    <LoginForm v-else />-
   </div>
 </template>
 
@@ -32,15 +32,6 @@ export default {
         association: JSON.parse(window.localStorage.getItem("userData"))
           .association,
         level: JSON.parse(window.localStorage.getItem("userData")).level,
-      };
-    } else if (window.sessionStorage.getItem("userData")) {
-      this.$store.state.userData = {
-        name: JSON.parse(window.sessionStorage.getItem("userData")).name,
-        email: JSON.parse(window.sessionStorage.getItem("userData")).email,
-        userId: JSON.parse(window.sessionStorage.getItem("userData")).userId,
-        association: JSON.parse(window.sessionStorage.getItem("userData"))
-          .association,
-        level: JSON.parse(window.sessionStorage.getItem("userData")).level,
       };
     } else {
       console.log("pas d'info");

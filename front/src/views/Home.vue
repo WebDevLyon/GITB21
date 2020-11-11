@@ -3,7 +3,7 @@
     <div v-if="$store.state.userData.association == null">
       <NotAssociation />
     </div>
-    <div v-else>
+    <div>
       <div id="block-content" class="home">
         <div id="dashboard" class="row justify-content-around">
           <div id="panel-tounois" class="card col-12 col-sm-5 my-2 pb-1">
@@ -81,16 +81,13 @@
 </template>
 
 <script>
-import NotAssociation from "@/components/NotAssociation";
-
+//import NotAssociation from "@/components/NotAssociation";
 
 export default {
   name: "Home",
   components: {
-    NotAssociation,
+    //NotAssociation,
   },
-  mounted() {
-   
-  },
+  mounted() {},
 };
 </script>

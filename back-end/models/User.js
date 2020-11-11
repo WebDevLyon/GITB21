@@ -9,10 +9,7 @@ const userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Association",
   },
-  level: { type: Number, default: 3 },
-  config: {
-    badisteTounois: { type: String, default: null },
-  },
+  role: { type: Number, default: 1 },
 });
 
 userSchema.plugin(uniqueValidator);
