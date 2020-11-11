@@ -2,14 +2,17 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const userSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    association: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Association'
-    },
-    level: { type: Number, default: 3 }
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  association: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Association",
+  },
+  level: { type: Number, default: 3 },
+  config: {
+    badisteTounois: { type: String, default: null },
+  },
 });
 
 userSchema.plugin(uniqueValidator);

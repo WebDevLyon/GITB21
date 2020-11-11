@@ -4,7 +4,6 @@ const Player = require("../models/Player");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
 /*Function de base
 exports.auth = (req, res, next) => {
   console.log(req.body.userId);
@@ -34,8 +33,11 @@ exports.auth = (req, res, next) => {
     if (!userId) {
       throw "Invalid user Token";
     } else {
-      User.findOne({ _id: userId }).populate({ path: 'association', populate: { path: 'joueurs' } })
-        .then(user => { res.status(200).json(user) })
+      User.findOne({ _id: userId })
+        .populate({ path: "association", populate: { path: "joueurs" } })
+        .then((user) => {
+          res.status(200).json(user);
+        })
         .catch((error) => res.status(500).json({ error }));
     }
   } catch {
@@ -44,7 +46,6 @@ exports.auth = (req, res, next) => {
     });
   }
 };
-
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -75,7 +76,8 @@ exports.login = (req, res, next) => {
     TypeShearch = { name: req.body.account };
   }
   //On cherche l'user et charge toutes les infos sur l'association et les joueurs de l'association
-  User.findOne(TypeShearch).populate({ path: 'association', populate: { path: 'joueurs' } })
+  User.findOne(TypeShearch)
+    .populate({ path: "association", populate: { path: "joueurs" } })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
@@ -101,6 +103,7 @@ exports.login = (req, res, next) => {
               "RANDOM_TOKEN_SECRET",
               { expiresIn: "24h" }
             ),
+            config: user.config,
           });
         })
         .catch((error) => res.status(500).json({ error }));
