@@ -1,6 +1,7 @@
 <template>
   <div>
     <App v-if="authCkeck" />
+    <!-- <App v-if="true" />FORCE LOGIN-->
     <LoginForm v-else />-
   </div>
 </template>
@@ -18,7 +19,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["IdViewType", "userData", "playerClub"]),
+    ...mapState(["userData"]),
   },
 
   methods: {},
