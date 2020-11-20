@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-if="$store.state.userData.association == null">
+    <div v-if="this.userData.association == null">
       <NotAssociation />
     </div>
     <div v-else>
