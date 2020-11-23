@@ -3,9 +3,9 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const associationrSchema = mongoose.Schema({
   name: { type: String, required: true, unique: true },
-  adresse: { type: String, required: true },
-  cp: { type: String, required: true },
-  ville: { type: String, required: true },
+  adresse: { type: String },
+  cp: { type: String },
+  ville: { type: String },
   responsable: [
     {
       type: mongoose.Schema.Types.ObjectId,
