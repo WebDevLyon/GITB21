@@ -27,22 +27,45 @@ exports.autoLog = (req, res, next) => {
 };
 
 exports.signup = (req, res, next) => {
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hash) => {
-      const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: hash,
+  Association.findOne({ name: req.body.associationName }).then((asso) => {
+    if (asso) {
+      res.status(400).json({ error: "Ce nom d'association existe déjà" });
+    } else {
+      User.findOne({ email: req.body.email }).then((user) => {
+        if (user) {
+          res.status(400).json({
+            error: "Il y a déjà un utilisateur enregistré avec ce mail",
+          });
+        } else {
+          let association = new Association({
+            name: req.body.associationName,
+          });
+          association
+            .save()
+            .then(() => {
+              bcrypt
+                .hash(req.body.password, 10)
+                .then((hash) => {
+                  const user = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: hash,
+                    association: association,
+                  });
+                  user
+                    .save()
+                    .then(() =>
+                      res.status(201).json({ message: "Utilisateur créé !" })
+                    )
+                    .catch((error) => res.status(500).json({ error }));
+                })
+                .catch((error) => res.status(500).json({ error }));
+            })
+            .catch((error) => res.status(500).json({ error }));
+        }
       });
-      user
-        .save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) =>
-          res.status(400).json({ error: "Cet email est déjà utilisé" })
-        );
-    })
-    .catch((error) => res.status(500).json({ msg: error }));
+    }
+  });
 };
 
 exports.login = (req, res, next) => {
@@ -63,13 +86,11 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             name: user.name,
             email: user.email,
-            userId: user._id,
-            role: user.role,
             association: user.association,
             token: jwt.sign(
               {
                 userId: user._id,
-                level: user.role,
+                role: user.role,
               },
               "RANDOM_TOKEN_SECRET",
               { expiresIn: "24h" }
